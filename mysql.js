@@ -1,20 +1,19 @@
 var mysql = require('mysql');
 const DATABASE = "default_bdd"
-const client = mysql.createConnection({
+
+exports.client = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: DATABASE,
 })
 
-export function connectMySQL()
+exports.connectMySQL = () =>
 {
-    client.connect(DATABASE, function (err, db) {
-        if (err) {
-            console.log(err)
-        }
-
-        console.log("Database Connected");
-    })
+    try {
+        this.client.connect()
+    } catch (e) {
+        console.error(e);
+    }
 }
 
