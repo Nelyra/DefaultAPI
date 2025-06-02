@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32b728e4-bb92-40af-ae4e-aa8ef62d0e0e" name="Changes" comment="Rename branch ?">
-      <change afterPath="$PROJECT_DIR$/mysql.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/repositories/utilisateursRepository.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/utilisateursService.js" afterDir="false" />
+    <list default="true" id="32b728e4-bb92-40af-ae4e-aa8ef62d0e0e" name="Changes" comment="Added couches">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/utilisateurs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/categories.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysql.js" beforeDir="false" afterPath="$PROJECT_DIR$/mysql.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repositories/utilisateursRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/utilisateursRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/utilisateurs.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/utilisateurs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/utilisateursService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/utilisateursService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Node.js.bin\\www.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -76,7 +74,13 @@
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "watcher.settings",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.1.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -95,7 +99,7 @@
       <updated>1748864798388</updated>
       <workItem from="1748864799405" duration="1212000" />
       <workItem from="1748866038329" duration="3087000" />
-      <workItem from="1748902773798" duration="2026000" />
+      <workItem from="1748902773798" duration="4955000" />
     </task>
     <task id="LOCAL-00001" summary="Defuck commit">
       <option name="closed" value="true" />
@@ -121,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748865409380</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added couches">
+      <option name="closed" value="true" />
+      <created>1748904915360</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748904915360</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +154,7 @@
     <MESSAGE value="Defuck commit" />
     <MESSAGE value="Defuck commit 2" />
     <MESSAGE value="Rename branch ?" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename branch ?" />
+    <MESSAGE value="Added couches" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added couches" />
   </component>
 </project>
