@@ -8,3 +8,12 @@ exports.getAllUsers = async function() {
         })
     })
 }
+
+exports.getUserById = async function(id) {
+    return new Promise(function(resolve) {
+        mysql.client.query('SELECT * FROM utilisateur WHERE id = ?', [id], (err, rows) => {
+            if (err) throw err;
+            resolve(rows);
+        })
+    })
+}
