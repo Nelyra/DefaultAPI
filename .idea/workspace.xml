@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="32b728e4-bb92-40af-ae4e-aa8ef62d0e0e" name="Changes" comment="Rename branch ?">
-      <change afterPath="$PROJECT_DIR$/views/test.pug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysql.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repositories/utilisateursRepository.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/utilisateursService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/utilisateurs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/categories.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,13 +24,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Pug File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,7 +65,8 @@
     "Node.js.bin\\www.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "connection-sql",
+    "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "20.11.1",
     "javascript.nodejs.core.library.typings.version": "20.11.30",
     "node.js.detected.package.eslint": "true",
@@ -87,6 +95,7 @@
       <updated>1748864798388</updated>
       <workItem from="1748864799405" duration="1212000" />
       <workItem from="1748866038329" duration="3087000" />
+      <workItem from="1748902773798" duration="2026000" />
     </task>
     <task id="LOCAL-00001" summary="Defuck commit">
       <option name="closed" value="true" />
