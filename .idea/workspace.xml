@@ -1,31 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="32b728e4-bb92-40af-ae4e-aa8ef62d0e0e" name="Changes" comment="Defuck commit 2" />
+    <list default="true" id="32b728e4-bb92-40af-ae4e-aa8ef62d0e0e" name="Changes" comment="Rename branch ?">
+      <change afterPath="$PROJECT_DIR$/views/test.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Pug File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "namuuu"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;namuuu&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:Nelyra/DefaultAPI.git",
-    "accountId": "493d5c53-aa0d-44ff-9b58-a8c03f4c50d1"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:Nelyra/DefaultAPI.git&quot;,
+    &quot;accountId&quot;: &quot;493d5c53-aa0d-44ff-9b58-a8c03f4c50d1&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2xx1EMNoYeokOqx1gVzn6ebRfGP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -35,7 +57,8 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Node.js.bin\\www.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "dev",
     "javascript.nodejs.core.library.configured.version": "20.11.1",
     "javascript.nodejs.core.library.typings.version": "20.11.30",
     "node.js.detected.package.eslint": "true",
@@ -44,7 +67,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "settings.editor.selected.configurable": "watcher.settings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -62,7 +85,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748864798388</updated>
-      <workItem from="1748864799405" duration="296000" />
+      <workItem from="1748864799405" duration="1212000" />
+      <workItem from="1748866038329" duration="3087000" />
     </task>
     <task id="LOCAL-00001" summary="Defuck commit">
       <option name="closed" value="true" />
@@ -80,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748865029036</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Rename branch ?">
+      <option name="closed" value="true" />
+      <created>1748865409380</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748865409380</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +132,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Defuck commit" />
     <MESSAGE value="Defuck commit 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Defuck commit 2" />
+    <MESSAGE value="Rename branch ?" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename branch ?" />
   </component>
 </project>
