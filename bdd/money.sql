@@ -193,12 +193,12 @@ CREATE TRIGGER TRG_BEFORE_INSERT_MOUVEMENT2
     BEFORE INSERT ON Mouvement
     for each row
 begin
-    IF typeMouvement = 'D' THEN
+    IF NEW.typeMouvement = 'D' THEN
         UPDATE Compte
         SET dernierSolde = dernierSolde - NEW.montant
         WHERE idCompte = NEW.idCompte;
     END IF; 
-    IF typeMouvement = 'C' THEN
+    IF NEW.typeMouvement = 'C' THEN
         UPDATE Compte
         SET dernierSolde = dernierSolde + NEW.montant
         WHERE idCompte = NEW.idCompte;
