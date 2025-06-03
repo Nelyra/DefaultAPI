@@ -1,4 +1,9 @@
 extends layout
 
 block content
-  p Error #{error.statusCode} : #{error.message}
+  if error.statusCode && error.message
+    h1 Error #{error.statusCode}
+    p #{error.message}
+  else 
+    h1 Error
+    p An unexpected error occurred.

@@ -14,8 +14,8 @@ router.get('/', async function(req, res) {
 
     return res.status(200).send(sqlReponse);
   } catch (error) {
-    console.error('Error fetching categories:', error);
-      return res.status(500).send({ message: 'Internal server error' });
+    res.render('error', { error: error });
+    return res.status(500).send({ message: 'Internal server error' });
   }
   
 });

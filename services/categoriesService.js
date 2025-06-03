@@ -6,7 +6,7 @@ exports.getAllCategories = async function() {
 }
 
 exports.getCategoryById = async function(id) {
-    const result =  await categoriesRepository.getCategoryById(id);
+    const result = await categoriesRepository.getCategoryById(id);
 
     if (result.length === 0) {
         throw new CategoryNotFoundError(id);
