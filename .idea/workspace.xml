@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32b728e4-bb92-40af-ae4e-aa8ef62d0e0e" name="Changes" comment="Added couches">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql.js" beforeDir="false" afterPath="$PROJECT_DIR$/mysql.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repositories/utilisateursRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/repositories/utilisateursRepository.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/utilisateurs.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/utilisateurs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/utilisateursService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/utilisateursService.js" afterDir="false" />
-    </list>
+    <list default="true" id="32b728e4-bb92-40af-ae4e-aa8ef62d0e0e" name="Changes" comment="Added couches" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +38,9 @@
     &quot;accountId&quot;: &quot;493d5c53-aa0d-44ff-9b58-a8c03f4c50d1&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -63,7 +59,7 @@
     "Node.js.bin\\www.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "connection-sql",
+    "git-widget-placeholder": "dev-bdd-money",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "20.11.1",
     "javascript.nodejs.core.library.typings.version": "20.11.30",
