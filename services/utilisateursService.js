@@ -8,6 +8,18 @@ exports.getUserById = async function(id) {
     return await utilisateursRepository.getUserById(id);
 }
 
+exports.getUserAccounts = async function(id) {
+    return await utilisateursRepository.getUserAccounts(id);
+}
+
+exports.getUserAccountById = async function(userId, accountId) {
+    return await utilisateursRepository.getUserAccountById(userId, accountId);
+}
+
+exports.getUserAccountMovements = async function(userId, accountId) {
+    return await utilisateursRepository.getUserAccountMovements(userId, accountId);
+}
+
 /*utilisateur
 /utilisateur/X 
 /utilisateurs/X/Comptes
