@@ -1,4 +1,4 @@
-const categoriesRepository = require('../repositories/categoriesRepostory')
+const categoriesRepository = require('../repositories/categoriesRepository')
 const CategoryNotFoundError = require('../errors/categoriesError').CategoryNotFoundError;
 
 exports.getAllCategories = async function() {
@@ -13,4 +13,14 @@ exports.getCategoryById = async function(id) {
     }
 
     return result;
+}
+
+exports.getSubCategoriesByCategoryId = async function(id) {
+    const category = await categoriesRepository.getCategoryById(id);
+
+    if (category.length === 0) {
+        throw new CategoryNotFoundError(id);
+    }
+
+    return await categoriesRepository.getSubCategoriesByCategoryId(id);
 }
