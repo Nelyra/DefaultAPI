@@ -39,3 +39,23 @@ router.get('/:id', async function(req, res) {
     return res.status(500).send({ message: 'Internal server error' });
   }
 });
+
+router.get('/:id/sous-categories', async function(req, res) {
+  const id = req.params.id;
+
+  try {
+    const sqlReponse = await categoriesService.getSubCategoriesByCategoryId(id);
+    
+    console.table(sqlReponse);
+    res.status(200).send(sqlReponse);
+
+  } catch (error) {
+    console.error(error);
+    res.render('error', { error: error });
+
+    if (error instanceof CategoryNotFoundError)
+      return res.status(404);
+
+    return res.status(500).send({ message: 'Internal server error' });
+  }
+});

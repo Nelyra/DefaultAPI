@@ -17,3 +17,12 @@ exports.getCategoryById = async function(id) {
         })
     })
 }
+
+exports.getSubCategoriesByCategoryId = async function(id) {
+    return new Promise(function(resolve) {
+        mysql.query('SELECT * FROM souscategorie WHERE idCategorie = ?', [id], (err, rows) => {
+            if (err) throw err;
+            resolve(rows);
+        })
+    })
+}

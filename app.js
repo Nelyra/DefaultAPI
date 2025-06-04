@@ -7,6 +7,7 @@ var mysql = require('./mysql.js');
 
 var usersRouter = require('./routes/utilisateurs');
 var categoriesRouter = require('./routes/categories');
+var sousCategoriesRouter = require('./routes/souscategories');
 
 var app = express();
 
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/utilisateurs', usersRouter);
 app.use('/categories', categoriesRouter);
+app.use('/sous-categories', sousCategoriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
