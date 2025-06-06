@@ -8,3 +8,15 @@ exports.getAllUsers = async function() {
         })
     })
 }
+
+exports.getTiersByUserId = async function(id) {
+    return new Promise(function(resolve, reject) {
+        mysql.client.query('SELECT * FROM tiers WHERE idUtilisateur = ?', [id], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+}
