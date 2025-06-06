@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const comptesService = require('../services/comptesService');
-const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 
 module.exports = router;
 
