@@ -5,19 +5,18 @@ const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundErro
 
 module.exports = router;
 
-router.get('/', async function(req, res) {
+router.get('/', async function(req, res, next) {
   try {
     const comptes = await comptesService.getAllComptes();
     
     console.table(comptes);
     res.status(200).send(comptes);
   } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: 'An error occurred while fetching comptes.' });
+    next(error);
   }
 });
 
-router.get('/:id', async function(req, res) {
+router.get('/:id', async function(req, res, next) {
   const id = req.params.id;
 
   try {
@@ -26,12 +25,33 @@ router.get('/:id', async function(req, res) {
     console.table(compte);
     res.status(200).send(compte);
   } catch (error) {
-    console.error(error);
-    res.render('error', { error: error });
+    next(error);
+  }
+});
 
-    if (error instanceof CompteNotFoundError)
-      return res.status(404).send({ error: 'Compte not found.' });
+router.get('/:id/mouvements', async function(req, res, next) {
+  const id = req.params.id;
 
-    return res.status(500).send({ error: 'An error occurred while fetching the compte.' });
+  try {
+    const mouvements = await comptesService.getMouvementsByCompteId(id);
+    
+    console.table(mouvements);
+    res.status(200).send(mouvements);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id/virements', async function(req, res, next) {
+  const id = req.params.id;
+  const typeMouvement = req.query.typeMouvement;
+
+  try {
+    const virements = await comptesService.getVirementsByCompteId(id, typeMouvement);
+    
+    console.table(virements);
+    res.status(200).send(virements);
+  } catch (error) {
+    next(error)
   }
 });

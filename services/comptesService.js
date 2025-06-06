@@ -14,3 +14,15 @@ exports.getCompteById = async function(id) {
 
     return result;
 }
+
+exports.getMouvementsByCompteId = async function(id) {
+    await this.getCompteById(id); // Ensure the compte exists
+
+    return await comptesRepository.getMouvementsByCompteId(id);
+}
+
+exports.getVirementsByCompteId = async function(id, typeMouvement) {
+    await this.getCompteById(id); // Ensure the compte exists
+
+    return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
+}
