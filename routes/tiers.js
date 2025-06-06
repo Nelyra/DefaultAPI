@@ -6,7 +6,7 @@ const TiersNotFoundError = require('../errors/tiersError').TiersNotFoundError;
 
 module.exports = router;
 
-router.get('/', async function(req, res) {
+router.get('/', async function(req, res, next) {
   try {
     const tiers = await tiersService.getAllTiers();
     console.table(tiers);
@@ -18,7 +18,7 @@ router.get('/', async function(req, res) {
   }
 });
 
-router.get('/:id', async function(req, res) {
+router.get('/:id', async function(req, res, next) {
   const id = req.params.id;
 
   try {
@@ -26,11 +26,6 @@ router.get('/:id', async function(req, res) {
     console.table(tier);
     return res.status(200).send(tier);
   } catch (error) {
-    console.error(error);
-    res.render('error', { error: error });
-    if (error instanceof TiersNotFoundError) {
-      return res.status(404).send({ message: `Tiers with ID ${id} not found` });
-    }
-    return res.status(500).send({ message: 'Internal server error' });
+    next(error);
   }
 });

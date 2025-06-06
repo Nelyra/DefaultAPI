@@ -29,15 +29,13 @@ app.use('/sous-categories', sousCategoriesRouter);
 app.use('/tiers', tiersRouter);
 app.use('/comptes', comptesRouter);
 
-const CompteNotFoundError = require('./errors/comptesError').CompteNotFoundError;
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   console.error(err);
 
   // set locals, only providing error in development
