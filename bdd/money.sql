@@ -1,4 +1,18 @@
+DROP TRIGGER IF EXISTS TRG_BEFORE_UPDATE_CATEGORIE;
+DROP TRIGGER IF EXISTS TRG_BEFORE_INSERT_MOUVEMENT; 
+DROP TRIGGER IF EXISTS TRG_BEFORE_INSERT_MOUVEMENT2;
+DROP TRIGGER IF EXISTS TRG_AFTER_DELETE_VIREMENT;
+DROP TRIGGER IF EXISTS TRG_AFTER_INSERT;
+DROP TRIGGER IF EXISTS TRG_BEFORE_UPDATE_VIREMENT;
+
+DROP TABLE IF EXISTS Mouvement;
+DROP TABLE IF EXISTS Tiers;
+DROP TABLE IF EXISTS Virement;
+DROP TABLE IF EXISTS SousCategorie;
 DROP TABLE IF EXISTS Categorie;
+DROP TABLE IF EXISTS Compte;
+DROP TABLE IF EXISTS Utilisateur;
+
 CREATE TABLE Categorie
 (
     idCategorie       int auto_increment
@@ -18,7 +32,6 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS SousCategorie;
 CREATE TABLE SousCategorie
 (
     idSousCategorie   int auto_increment
@@ -42,7 +55,6 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS Utilisateur;
 CREATE TABLE Utilisateur
 (
     idUtilisateur     int auto_increment
@@ -58,7 +70,7 @@ CREATE TABLE Utilisateur
     codePostal        char(5)                               null
 );
 
-DROP TABLE IF EXISTS Compte;
+
 CREATE TABLE Compte
 (
     idCompte          int auto_increment
@@ -85,7 +97,6 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS Tiers;
 CREATE TABLE Tiers
 (
     idTiers           int auto_increment
@@ -118,7 +129,6 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS Virement;
 CREATE TABLE Virement
 (
     idVirement        int auto_increment
@@ -137,7 +147,6 @@ CREATE TABLE Virement
         foreign key (idCompteCredit) references Compte (idCompte)
 );
 
-DROP TABLE IF EXISTS Mouvement;
 CREATE TABLE Mouvement
 (
     idMouvement       int auto_increment                    primary key,
