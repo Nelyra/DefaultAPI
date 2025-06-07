@@ -83,9 +83,11 @@ router.get(('/:id/tiers'), async function(req, res, next) {
 
 router.get('/:id/mouvements', async function(req, res, next) {
   const id = req.params.id;
+  const category = req.query.categorie;
+  const subCategory = req.query['sous-categorie'];
 
   try {
-    const sqlReponse = await utilisateursService.getUserMouvements(id);
+    const sqlReponse = await utilisateursService.getUserMouvements(id, category, subCategory);
 
     console.table(sqlReponse);
 
@@ -97,9 +99,10 @@ router.get('/:id/mouvements', async function(req, res, next) {
 
 router.get('/:id/virements', async function(req, res, next) {
   const id = req.params.id;
+  const typeMouvement = req.query.typeMouvement;
 
   try {
-    const sqlReponse = await utilisateursService.getUserVirements(id);
+    const sqlReponse = await utilisateursService.getUserVirements(id, typeMouvement);
 
     console.table(sqlReponse);
 

@@ -36,7 +36,7 @@ exports.getTiersByUserId = async function(id) {
     return result;
 }
 
-exports.getUserMouvements = async function(id) {
+exports.getUserMouvements = async function(id, category, subCategory) {
     const sqlResponse = await this.getUserAccounts(id);
 
     if (sqlResponse.length === 0) {
@@ -47,7 +47,7 @@ exports.getUserMouvements = async function(id) {
 
     for (const compte of sqlResponse) {
         promises.push(
-            comptesRepository.getMouvementsByCompteId(compte.idCompte)
+            comptesRepository.getMouvementsByCompteId(compte.idCompte, category, subCategory)
         );
     }
 
@@ -61,7 +61,7 @@ exports.getUserMouvements = async function(id) {
     };
 }
 
-exports.getUserVirements = async function(id) {
+exports.getUserVirements = async function(id, typeMouvement) {
     const sqlResponse = await this.getUserAccounts(id);
 
     if (sqlResponse.length === 0) {
@@ -72,7 +72,7 @@ exports.getUserVirements = async function(id) {
 
     for (const compte of sqlResponse) {
         promises.push(
-            comptesRepository.getVirementsByCompteId(compte.idCompte)
+            comptesRepository.getVirementsByCompteId(compte.idCompte, typeMouvement)
         );
     }
 

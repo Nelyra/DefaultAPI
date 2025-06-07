@@ -18,9 +18,22 @@ exports.getCompteById = async function(id) {
     });
 }
 
-exports.getMouvementsByCompteId = async function(id) {
+exports.getMouvementsByCompteId = async function(id, category, subCategory) {
     return new Promise(function(resolve) {
-        mysql.query('SELECT * FROM mouvement WHERE idCompte = ?', [id], (err, rows) => {
+        let query = 'SELECT * FROM mouvement WHERE idCompte = ?';
+        let params = [id];
+
+        if (category) {
+            query += ' AND idCategorie = ?';
+            params.push(category);
+        }
+
+        if (subCategory) {
+            query += ' AND idSousCategorie = ?';
+            params.push(subCategory);
+        }
+
+        mysql.query(query, params, (err, rows) => {
             if (err) throw err;
             resolve(rows);
         });

@@ -30,9 +30,11 @@ router.get('/:id', async function(req, res, next) {
 
 router.get('/:id/mouvements', async function(req, res, next) {
   const id = req.params.id;
+  const category = req.query.categorie;
+  const subCategory = req.query["sous-categorie"];
 
   try {
-    const mouvements = await comptesService.getMouvementsByCompteId(id);
+    const mouvements = await comptesService.getMouvementsByCompteId(id, category, subCategory);
     
     console.table(mouvements);
     res.status(200).send(mouvements);
