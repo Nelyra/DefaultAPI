@@ -47,21 +47,6 @@ router.get('/:id/comptes', async function(req, res, next) {
   }
 });
 
-router.get('/:id/comptes/:accountId', async function(req, res, next) {
-  try {
-    const id = req.params.id;
-    const accountId = req.params.accountId;
-
-    const sqlReponse = await utilisateursService.getUserAccountById(id, accountId);
-
-    console.table(sqlReponse);
-
-    res.status(200).send(sqlReponse);
-  } catch (error) {
-    next(error);
-  }
-});
-
 router.get('/:id/comptes/:accountId/mouvements', async function(req, res, next) {
   const id = req.params.id;
   const accountId = req.params.accountId;
