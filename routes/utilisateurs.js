@@ -47,26 +47,26 @@ router.get('/:id/comptes', async function(req, res, next) {
   }
 });
 
-router.get('/:id/comptes/:accountId/mouvements', async function(req, res, next) {
-  const id = req.params.id;
-  const accountId = req.params.accountId;
+// router.get('/:id/comptes/:accountId/mouvements', async function(req, res, next) {
+//   const id = req.params.id;
+//   const accountId = req.params.accountId;
 
-  const user = await utilisateursService.getUserById(id);
-  if (user.length === 0) {
-    return res.status(404).send({ message: 'Utilisateur non trouvé' });
-  }
+//   const user = await utilisateursService.getUserById(id);
+//   if (user.length === 0) {
+//     return res.status(404).send({ message: 'Utilisateur non trouvé' });
+//   }
 
-  const account = await utilisateursService.getUserAccountById(id, accountId);
-  if (account.length === 0) {
-    return res.status(404).send({ message: 'Compte non trouvé pour cet utilisateur' });
-  }
+//   const account = await utilisateursService.getUserAccountById(id, accountId);
+//   if (account.length === 0) {
+//     return res.status(404).send({ message: 'Compte non trouvé pour cet utilisateur' });
+//   }
 
-  const sqlReponse = await utilisateursService.getUserAccountMovements(accountId);
+//   const sqlReponse = await utilisateursService.getUserAccountMovements(accountId);
 
-  console.table(sqlReponse);
+//   console.table(sqlReponse);
 
-  res.status(200).send(sqlReponse);
-});
+//   res.status(200).send(sqlReponse);
+// });
 
 router.get(('/:id/tiers'), async function(req, res, next) {
   const id = req.params.id;
@@ -75,6 +75,34 @@ router.get(('/:id/tiers'), async function(req, res, next) {
     const sqlReponse = await utilisateursService.getTiersByUserId(id);
 
     console.table(sqlReponse);
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id/mouvements', async function(req, res, next) {
+  const id = req.params.id;
+
+  try {
+    const sqlReponse = await utilisateursService.getUserMouvements(id);
+
+    console.table(sqlReponse);
+
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id/virements', async function(req, res, next) {
+  const id = req.params.id;
+
+  try {
+    const sqlReponse = await utilisateursService.getUserVirements(id);
+
+    console.table(sqlReponse);
+
     res.status(200).send(sqlReponse);
   } catch (error) {
     next(error);

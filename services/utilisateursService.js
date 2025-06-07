@@ -1,4 +1,5 @@
 const utilisateursRepository = require('../repositories/utilisateursRepository')
+const comptesRepository = require('../repositories/comptesRepository');
 
 const UserNotFoundError = require('../errors/utilisateursError').UserNotFoundError;
 
@@ -35,3 +36,52 @@ exports.getTiersByUserId = async function(id) {
     return result;
 }
 
+exports.getUserMouvements = async function(id) {
+    const sqlResponse = await this.getUserAccounts(id);
+
+    if (sqlResponse.length === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    const promises = [];
+
+    for (const compte of sqlResponse) {
+        promises.push(
+            comptesRepository.getMouvementsByCompteId(compte.idCompte)
+        );
+    }
+
+    const results = await Promise.all(promises);
+
+    const mouvements = results.flat();
+
+    return {
+        idUtilisateur: id,
+        mouvements: mouvements
+    };
+}
+
+exports.getUserVirements = async function(id) {
+    const sqlResponse = await this.getUserAccounts(id);
+
+    if (sqlResponse.length === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    const promises = [];
+
+    for (const compte of sqlResponse) {
+        promises.push(
+            comptesRepository.getVirementsByCompteId(compte.idCompte)
+        );
+    }
+
+    const results = await Promise.all(promises);
+
+    const virements = results.flat();
+
+    return {
+        idUtilisateur: id,
+        virements: virements
+    };
+}
