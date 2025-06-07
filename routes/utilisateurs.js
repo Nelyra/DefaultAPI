@@ -74,3 +74,17 @@ router.get('/:id/comptes/:accountId/mouvements', async function(req, res) {
 });
 
 module.exports = router;
+
+router.get(('/:id/tiers'), async function(req, res, next) {
+  const id = req.params.id;
+
+  try {
+    const sqlReponse = await utilisateursService.getTiersByUserId(id);
+
+    console.table(sqlReponse);
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
+  }
+});
+

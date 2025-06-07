@@ -1,5 +1,7 @@
 const utilisateursRepository = require('../repositories/utilisateursRepository')
 
+const UserNotFoundError = require('../errors/utilisateursError').UserNotFoundError;
+
 exports.getAllUsers = async function() {
     return await utilisateursRepository.getAllUsers();
 }
@@ -20,18 +22,14 @@ exports.getUserAccountMovements = async function(userId, accountId) {
     return await utilisateursRepository.getUserAccountMovements(userId, accountId);
 }
 
-/*utilisateur
-/utilisateur/X 
-/utilisateurs/X/Comptes
-/utilisateurs/X/Comptes/X
-/utilisateurs/X/Comptes/X/Mouvements
-/utilisateurs/X/Comptes/X/Mouvements/tiers
-/utilisateurs/X/tiers
-/utilisateurs/X/virements
-/categories
-/categories/X
-/categories/X/sousCategories
-/categories/X/sousCategories/X
-/utilisateurs/X/Mouvements
-/Utilisateurs/X/Comptes/X/Mouvements/Souscategories/X/utilisateurs/X/Comptes
-*/
+
+exports.getTiersByUserId = async function(id) {
+    const result = await utilisateursRepository.getTiersByUserId(id);
+
+    if (result.length === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    return result;
+}
+

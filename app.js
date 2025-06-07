@@ -5,8 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mysql = require('./mysql.js');
 
-var usersRouter = require('./routes/utilisateurs');
-var categoriesRouter = require('./routes/categories');
+const usersRouter = require('./routes/utilisateurs');
+const categoriesRouter = require('./routes/categories');
+const sousCategoriesRouter = require('./routes/souscategories');
+const tiersRouter = require('./routes/tiers');
+const comptesRouter = require('./routes/comptes');
 
 var app = express();
 
@@ -22,6 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/utilisateurs', usersRouter);
 app.use('/categories', categoriesRouter);
+app.use('/sous-categories', sousCategoriesRouter);
+app.use('/tiers', tiersRouter);
+app.use('/comptes', comptesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -29,14 +35,16 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
+  console.error(err);
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  res.status(err.statusCode || 500);
+  res.render('error', { error: err });
 });
 
 mysql.connectMySQL();
