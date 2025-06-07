@@ -18,15 +18,6 @@ exports.getUserAccounts = async function(id) {
     })
 }
 
-exports.getUserAccountById = async function(userId, accountId) {
-    return new Promise(function(resolve) {
-        mysql.query('SELECT * FROM compte WHERE idUtilisateur = ? AND idCompte = ?', [userId, accountId], (err, rows) => {
-            if (err) throw err;
-            resolve(rows);
-        })
-    })
-}
-
 exports.getUserAccountMovements = async function(userId, accountId) {
     return new Promise(function(resolve) {
         mysql.query(

@@ -20,16 +20,6 @@ exports.getUserAccounts = async function(id) {
     return sqlReponse;
 }
 
-exports.getUserAccountById = async function(userId, accountId) {
-    const sqlReponse = await utilisateursRepository.getUserAccountById(userId, accountId);
-    
-    if (sqlReponse.length === 0) {
-        throw new UserNotFoundError(userId);
-    }
-
-    return sqlReponse;
-}
-
 exports.getUserAccountMovements = async function(userId, accountId) {
     return await utilisateursRepository.getUserAccountMovements(userId, accountId);
 }
