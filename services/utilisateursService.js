@@ -11,11 +11,23 @@ exports.getUserById = async function(id) {
 }
 
 exports.getUserAccounts = async function(id) {
-    return await utilisateursRepository.getUserAccounts(id);
+    const sqlReponse = await utilisateursRepository.getUserAccounts(id);
+
+    if (sqlReponse.length === 0) {
+      throw new UserNotFoundError(id);
+    }
+
+    return sqlReponse;
 }
 
 exports.getUserAccountById = async function(userId, accountId) {
-    return await utilisateursRepository.getUserAccountById(userId, accountId);
+    const sqlReponse = await utilisateursRepository.getUserAccountById(userId, accountId);
+    
+    if (sqlReponse.length === 0) {
+        throw new UserNotFoundError(userId);
+    }
+
+    return sqlReponse;
 }
 
 exports.getUserAccountMovements = async function(userId, accountId) {

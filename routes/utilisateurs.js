@@ -1,58 +1,68 @@
-var express = require('express');
-var router = express.Router();
-var utilisateursService = require('../services/utilisateursService');
+const express = require('express');
+const router = express.Router();
+const utilisateursService = require('../services/utilisateursService');
+
+module.exports = router;
 
 /* GET home page. */
-router.get('/', async function(req, res) {
-  const sqlReponse = await utilisateursService.getAllUsers();
+router.get('/', async function(req, res, next) {
+  try {
+    const sqlReponse = await utilisateursService.getAllUsers();
 
-  console.table(sqlReponse);
+    console.table(sqlReponse);
 
-  res.status(200).send(sqlReponse);
-});
-
-router.get('/:id', async function(req, res) {
-  const id = req.params.id;
-  const sqlReponse = await utilisateursService.getUserById(id);
-
-  if (sqlReponse.length === 0) {
-    return res.status(404).send({ message: 'Utilisateur non trouvé' });
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
   }
-
-  console.table(sqlReponse);
-
-  res.status(200).send(sqlReponse);
 });
 
-router.get('/:id/comptes', async function(req, res) {
-  const id = req.params.id;
-  const sqlReponse = await utilisateursService.getUserAccounts(id);
+router.get('/:id', async function(req, res, next) {
+  try {
+    const id = req.params.id;
+    const sqlReponse = await utilisateursService.getUserById(id);
 
-  if (sqlReponse.length === 0) {
-    return res.status(404).send({ message: 'Aucun compte trouvé pour cet utilisateur' });
+    if (sqlReponse.length === 0) {
+      return res.status(404).send({ message: 'Utilisateur non trouvé' });
+    }
+
+    console.table(sqlReponse);
+
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
   }
-
-  console.table(sqlReponse);
-
-  res.status(200).send(sqlReponse);
 });
 
-router.get('/:id/comptes/:accountId', async function(req, res) {
-  const id = req.params.id;
-  const accountId = req.params.accountId;
+router.get('/:id/comptes', async function(req, res, next) {
+  try {
+    const id = req.params.id;
+    const sqlReponse = await utilisateursService.getUserAccounts(id);
 
-  const sqlReponse = await utilisateursService.getUserAccountById(id, accountId);
+    console.table(sqlReponse);
 
-  if (sqlReponse.length === 0) {
-    return res.status(404).send({ message: 'Compte non trouvé pour cet utilisateur' });
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
   }
-
-  console.table(sqlReponse);
-
-  res.status(200).send(sqlReponse);
 });
 
-router.get('/:id/comptes/:accountId/mouvements', async function(req, res) {
+router.get('/:id/comptes/:accountId', async function(req, res, next) {
+  try {
+    const id = req.params.id;
+    const accountId = req.params.accountId;
+
+    const sqlReponse = await utilisateursService.getUserAccountById(id, accountId);
+
+    console.table(sqlReponse);
+
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id/comptes/:accountId/mouvements', async function(req, res, next) {
   const id = req.params.id;
   const accountId = req.params.accountId;
 
@@ -72,8 +82,6 @@ router.get('/:id/comptes/:accountId/mouvements', async function(req, res) {
 
   res.status(200).send(sqlReponse);
 });
-
-module.exports = router;
 
 router.get(('/:id/tiers'), async function(req, res, next) {
   const id = req.params.id;
