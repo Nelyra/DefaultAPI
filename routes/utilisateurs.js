@@ -89,8 +89,6 @@ router.get('/:id/mouvements', async function(req, res, next) {
   try {
     const sqlReponse = await utilisateursService.getUserMouvements(id, category, subCategory);
 
-    console.table(sqlReponse);
-
     res.status(200).send(sqlReponse);
   } catch (error) {
     next(error);
@@ -103,8 +101,6 @@ router.get('/:id/virements', async function(req, res, next) {
 
   try {
     const sqlReponse = await utilisateursService.getUserVirements(id, typeMouvement);
-
-    console.table(sqlReponse);
 
     res.status(200).send(sqlReponse);
   } catch (error) {
