@@ -11,7 +11,7 @@ exports.client = mysql.createConnection({
 exports.connectMySQL = () =>
 {
     try {
-        this.client.connect()
+        this.client.connect();
     } catch (e) {
         console.error(e);
     }
