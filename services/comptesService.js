@@ -12,7 +12,7 @@ exports.getCompteById = async function(id) {
         throw new CompteNotFoundError(id);
     }
 
-    return result;
+    return result[0];
 }
 
 exports.getMouvementsByCompteId = async function(id, category, subCategory) {

@@ -8,7 +8,13 @@ exports.getAllUsers = async function() {
 }
 
 exports.getUserById = async function(id) {
-    return await utilisateursRepository.getUserById(id);
+    const response =  await utilisateursRepository.getUserById(id);
+
+    if (response.length === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    return response[0];
 }
 
 exports.getUserAccounts = async function(id) {
