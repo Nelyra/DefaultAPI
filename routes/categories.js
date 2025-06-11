@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var categoriesService = require('../services/categoriesService.js');
-const CategoryNotFoundError = require('../errors/categoriesError').CategoryNotFoundError;
 
 module.exports = router;
 
@@ -20,10 +19,9 @@ router.get('/', async function(req, res, next) {
 router.post('/', async function(req, res, next) {
   const category = req.body;
 
-  console.log('Received category:', category);
-
   try {
-    categoriesService.createCategory(category);
+    const result = await categoriesService.createCategory(category);
+    category.idCategorie = result.insertId; // Inserting the ID
 
     res.status(201).send(category);
   } catch (error) {
@@ -39,6 +37,18 @@ router.get('/:id', async function(req, res, next) {
     
     res.status(200).send(sqlReponse[0]);
 
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete('/:id', async function(req, res, next) {
+  const id = req.params.id;
+
+  try {
+    const sqlReponse = await categoriesService.deleteCategoryById(id);
+
+    res.status(200).send(); // No content to send back
   } catch (error) {
     next(error);
   }
