@@ -1,8 +1,27 @@
 const categoriesRepository = require('../repositories/categoriesRepository')
 const CategoryNotFoundError = require('../errors/categoriesError').CategoryNotFoundError;
+const InvalidCategoryError = require('../errors/categoriesError').InvalidCategoryError;
 
 exports.getAllCategories = async function() {
     return await categoriesRepository.getAllCategories();
+}
+
+exports.createCategory = async function(category) 
+{
+    // Validate the category object
+    if (!category || !category.nomCategorie) {
+        const missingFields = [];
+        if (!category) {
+            missingFields.push('category object');
+        } else {
+            if (!category.nomCategorie) {
+                missingFields.push('nomCategorie');
+            }
+        }
+        throw new InvalidCategoryError(missingFields);
+    }
+
+    return await categoriesRepository.createCategory(category);
 }
 
 exports.getCategoryById = async function(id) {

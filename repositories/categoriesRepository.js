@@ -9,6 +9,15 @@ exports.getAllCategories = async function() {
     })
 }
 
+exports.createCategory = async function(category) {
+    return new Promise(function(resolve) {
+        mysql.query('INSERT INTO categorie (nomCategorie) VALUES (?)', [category.nomCategorie], (err, result) => {
+            if (err) throw err;
+            resolve(result);
+        })
+    })
+}
+
 exports.getCategoryById = async function(id) {
     return new Promise(function(resolve) {
         mysql.query('SELECT * FROM categorie WHERE idCategorie = ?', [id], (err, rows) => {

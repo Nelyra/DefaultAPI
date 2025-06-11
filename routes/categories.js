@@ -17,6 +17,20 @@ router.get('/', async function(req, res, next) {
   
 });
 
+router.post('/', async function(req, res, next) {
+  const category = req.body;
+
+  console.log('Received category:', category);
+
+  try {
+    categoriesService.createCategory(category);
+
+    res.status(201).send(category);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/:id', async function(req, res, next) {
   const id = req.params.id;
 

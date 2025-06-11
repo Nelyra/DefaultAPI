@@ -5,3 +5,11 @@ exports.CategoryNotFoundError = class CategoryNotFoundError extends Error {
         this.statusCode = 404; // HTTP status code for Not Found
     }
 }
+
+exports.InvalidCategoryError = class InvalidCategoryError extends Error {
+    constructor(missingFields = []) {
+        super(`Invalid category data. Missing fields: ${missingFields.join(', ')}`);
+        this.name = 'InvalidCategoryError';
+        this.statusCode = 400; // HTTP status code for Bad Request
+    }
+}
