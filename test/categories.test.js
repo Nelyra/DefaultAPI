@@ -51,7 +51,7 @@ describe('POST /categories', () => {
 describe('DELETE /categories/:id', () => {
     test('should delete a category by ID', async () => {
         const response = await request(app).delete(`/categories/${testCategoryId}`);
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(204);
     });
 
     test('should return 404 for non-existent category', async () => {

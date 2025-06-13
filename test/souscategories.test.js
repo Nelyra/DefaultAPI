@@ -28,3 +28,15 @@ describe('GET /sous-categories/:id', () => {
         expect(response.statusCode).toBe(404);
     });
 });
+
+describe('DELETE /sous-categories/:id', () => {
+    test('should delete a subcategory by ID', async () => {
+        const response = await request(app).delete('/sous-categories/1');
+        expect(response.statusCode).toBe(204);
+    });
+
+    test('should return 404 for non-existent subcategory', async () => {
+        const response = await request(app).delete('/sous-categories/9999');
+        expect(response.statusCode).toBe(404);
+    });
+});
