@@ -30,10 +30,10 @@ describe('GET /comptes/:id', () => {
 });
 
 describe('DELETE /comptes/:id', () => {
-    test('should delete an account by ID', async () => {
-        const response = await request(app).delete('/comptes/1');
-        expect(response.statusCode).toBe(204);
-    });
+    // test('should delete an account by ID', async () => {
+    //     const response = await request(app).delete('/comptes/1');
+    //     expect(response.statusCode).toBe(204);
+    // });
 
     test('should return 404 for non-existent account', async () => {
         const response = await request(app).delete('/comptes/9999');

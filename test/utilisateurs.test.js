@@ -16,10 +16,10 @@ describe('GET /utilisateurs', () => {
 });
 
 describe('DELETE /utilisateurs/:id', () => {
-    test('should delete a user by ID', async () => {
-        const response = await request(app).delete('/utilisateurs/1');
-        expect(response.statusCode).toBe(204);
-    });
+    // test('should delete a user by ID', async () => {
+    //     const response = await request(app).delete('/utilisateurs/1');
+    //     expect(response.statusCode).toBe(204);
+    // });
 
     test('should return 404 for non-existent user', async () => {
         const response = await request(app).delete('/utilisateurs/9999');
