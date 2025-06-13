@@ -29,6 +29,18 @@ describe('GET /comptes/:id', () => {
     });
 });
 
+describe('DELETE /comptes/:id', () => {
+    test('should delete an account by ID', async () => {
+        const response = await request(app).delete('/comptes/1');
+        expect(response.statusCode).toBe(204);
+    });
+
+    test('should return 404 for non-existent account', async () => {
+        const response = await request(app).delete('/comptes/9999');
+        expect(response.statusCode).toBe(404);
+    });
+});
+
 describe('GET /comptes/:id/mouvements', () => {
     test('should return movements for an account', async () => {
         const response = await request(app).get('/comptes/1/mouvements');

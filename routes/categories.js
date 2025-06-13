@@ -48,7 +48,7 @@ router.delete('/:id', async function(req, res, next) {
   try {
     const sqlReponse = await categoriesService.deleteCategoryById(id);
 
-    res.status(200).send(); // No content to send back
+    res.status(204).send(); // No content to send back
   } catch (error) {
     next(error);
   }
