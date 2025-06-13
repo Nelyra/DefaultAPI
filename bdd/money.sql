@@ -37,11 +37,11 @@ CREATE TABLE SousCategorie
     idSousCategorie   int auto_increment
         primary key,
     nomSousCategorie  varchar(50)                           not null,
-    idcategorie       int                                   not null,
+    idCategorie       int                                   not null,
     dateHeureCreation timestamp default current_timestamp() not null,
     dateHeureMAJ      timestamp default current_timestamp() not null,
     constraint SousCategorie_Categorie_idCategorie_fk
-        foreign key (idcategorie) references Categorie (idCategorie)
+        foreign key (idCategorie) references Categorie (idCategorie)
             on delete cascade
 );
 
