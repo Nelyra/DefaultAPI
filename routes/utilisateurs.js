@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const utilisateursService = require('../services/utilisateursService');
+const auth = require('../auth');
 
 module.exports = router;
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/', auth.verifyToken, async function(req, res, next) {
   try {
     const sqlReponse = await utilisateursService.getAllUsers();
 
