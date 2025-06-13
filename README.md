@@ -60,3 +60,52 @@ We provide a series of test using [Jest](https://jestjs.io/) and [Supertest](htt
 ```bash
 npm run test
 ```
+
+## Directory structure
+
+```
+root
+├─ repositories/
+├─ routes/
+├─ services/
+├─ test/
+├─ app.js
+├─ auth.js
+└─ mysql.js
+```
+
+### 📁 /repositories
+
+The **repositories** folder stores every SQL request that will interact with the SQL Database.
+
+### 📁 Routes
+
+Each file in the **routes** folder is a base route of the API.
+
+### 📁 Services
+
+The **services** folder handles the data processing and acts as a middle ground between the `/routes` folder and the `/repositories` folder.
+
+### 📁 Test
+
+The test folder is used for every `.test.js` file. They are ran when doing the `npm run test` command with Jest.
+
+### 📄 app.js
+
+Base file for the application.
+
+### 📄 auth.js
+
+Contains the functions that handles the authentification of the user by verifying its token.
+
+### 📄 mysql.js
+
+Every process that contributes to the connection to the SQL database.
+
+## Contributors
+
+| Student | Github |
+| --- | --- |
+| Leevan DAVID | [namuuu](https://github.com/namuuu) |
+| Augustin MORICEAU | [Nelyra](https://github.com/Nelyra) |
+| Jérôme DEVIENNE | [JDevienne](https://github.com/Jdevienne) |
