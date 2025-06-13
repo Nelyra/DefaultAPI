@@ -7,6 +7,14 @@ exports.getAllUsers = async function() {
     return await utilisateursRepository.getAllUsers();
 }
 
+exports.getUserbyLogin = async function(username) {
+    const response = await utilisateursRepository.getUserByLogin(username);
+    if (response.length === 0) {
+        throw new UserNotFoundError(username);
+    }
+    return response[0];
+}
+
 exports.getUserById = async function(id) {
     const response =  await utilisateursRepository.getUserById(id);
 

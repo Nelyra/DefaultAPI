@@ -10,6 +10,9 @@ const categoriesRouter = require('./routes/categories');
 const sousCategoriesRouter = require('./routes/souscategories');
 const tiersRouter = require('./routes/tiers');
 const comptesRouter = require('./routes/comptes');
+const authenticateRouter = require('./routes/authenticate');
+
+require('dotenv').config();
 
 var app = express();
 
@@ -23,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/authenticate', authenticateRouter);
 app.use('/utilisateurs', usersRouter);
 app.use('/categories', categoriesRouter);
 app.use('/sous-categories', sousCategoriesRouter);
