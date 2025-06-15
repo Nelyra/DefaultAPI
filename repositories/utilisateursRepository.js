@@ -18,15 +18,6 @@ exports.getUserByLogin = async function(username) {
     })
 }
 
-exports.getUserAccounts = async function(id) {
-    return new Promise(function(resolve) {
-        mysql.query('SELECT * FROM compte WHERE idUtilisateur = ?', [id], (err, rows) => {
-            if (err) throw err;
-            resolve(rows);
-        })
-    })
-}
-
 exports.getUserAccountMovements = async function(userId, accountId) {
     return new Promise(function(resolve) {
         mysql.query(
@@ -39,15 +30,6 @@ exports.getUserAccountMovements = async function(userId, accountId) {
             resolve(rows);
             }
         )
-    })
-}
-
-exports.getAllUsers = async function() {
-    return new Promise(function(resolve) {
-        mysql.query('SELECT * FROM utilisateur', (err, rows) => {
-            if (err) throw err;
-            resolve(rows);
-        })
     })
 }
 

@@ -5,10 +5,9 @@ const auth = require('../auth');
 
 module.exports = router;
 
-/* GET home page. */
 router.get('/', auth.verifyToken, async function(req, res, next) {
   try {
-    const sqlReponse = await utilisateursService.getAllUsers();
+    const sqlReponse = await utilisateursService.getUserById(req.user.id);
 
     res.status(200).send(sqlReponse);
   } catch (error) {
@@ -16,10 +15,9 @@ router.get('/', auth.verifyToken, async function(req, res, next) {
   }
 });
 
-router.get('/:id', async function(req, res, next) {
+router.get(('/tiers'), auth.verifyToken, async function(req, res, next) {
   try {
-    const id = req.params.id;
-    const sqlReponse = await utilisateursService.getUserById(id);
+    const sqlReponse = await utilisateursService.getTiersByUserId(req.user.id);
 
     res.status(200).send(sqlReponse);
   } catch (error) {
@@ -27,36 +25,12 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
-router.get('/:id/comptes', async function(req, res, next) {
-  try {
-    const id = req.params.id;
-    const sqlReponse = await utilisateursService.getUserAccounts(id);
-
-    res.status(200).send(sqlReponse);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get(('/:id/tiers'), async function(req, res, next) {
-  const id = req.params.id;
-
-  try {
-    const sqlReponse = await utilisateursService.getTiersByUserId(id);
-
-    res.status(200).send(sqlReponse);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get('/:id/mouvements', async function(req, res, next) {
-  const id = req.params.id;
+router.get('/mouvements', auth.verifyToken, async function(req, res, next) {
   const category = req.query.categorie;
   const subCategory = req.query['sous-categorie'];
 
   try {
-    const sqlReponse = await utilisateursService.getUserMouvements(id, category, subCategory);
+    const sqlReponse = await utilisateursService.getUserMouvements(req.user.id, category, subCategory);
 
     res.status(200).send(sqlReponse);
   } catch (error) {
@@ -64,12 +38,11 @@ router.get('/:id/mouvements', async function(req, res, next) {
   }
 });
 
-router.get('/:id/virements', async function(req, res, next) {
-  const id = req.params.id;
+router.get('/virements', auth.verifyToken, async function(req, res, next) {
   const typeMouvement = req.query.typeMouvement;
 
   try {
-    const sqlReponse = await utilisateursService.getUserVirements(id, typeMouvement);
+    const sqlReponse = await utilisateursService.getUserVirements(req.user.id, typeMouvement);
 
     res.status(200).send(sqlReponse);
   } catch (error) {

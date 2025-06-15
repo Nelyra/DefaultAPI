@@ -6,7 +6,7 @@ module.exports = router;
 
 router.get('/', async function(req, res, next) {
   try {
-    const comptes = await comptesService.getAllComptes();
+    const comptes = await comptesService.getAllComptes(req.user.id);
     
     res.status(200).send(comptes);
   } catch (error) {
