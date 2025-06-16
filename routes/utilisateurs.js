@@ -5,32 +5,14 @@ const auth = require('../auth');
 
 module.exports = router;
 
-router.get('/', auth.verifyToken, async function(req, res, next) {
-  try {
-    const sqlReponse = await utilisateursService.getUserById(req.user.id);
-
-    res.status(200).send(sqlReponse);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get(('/tiers'), auth.verifyToken, async function(req, res, next) {
-  try {
-    const sqlReponse = await utilisateursService.getTiersByUserId(req.user.id);
-
-    res.status(200).send(sqlReponse);
-  } catch (error) {
-    next(error);
-  }
-});
-
 router.get('/mouvements', auth.verifyToken, async function(req, res, next) {
   const category = req.query.categorie;
   const subCategory = req.query['sous-categorie'];
 
+  const id = req.user.id;
+
   try {
-    const sqlReponse = await utilisateursService.getUserMouvements(req.user.id, category, subCategory);
+    const sqlReponse = await utilisateursService.getUserMouvementsById(id, category, subCategory);
 
     res.status(200).send(sqlReponse);
   } catch (error) {
@@ -41,8 +23,10 @@ router.get('/mouvements', auth.verifyToken, async function(req, res, next) {
 router.get('/virements', auth.verifyToken, async function(req, res, next) {
   const typeMouvement = req.query.typeMouvement;
 
+  const id = req.user.id;
+
   try {
-    const sqlReponse = await utilisateursService.getUserVirements(req.user.id, typeMouvement);
+    const sqlReponse = await utilisateursService.getUserVirementsById(id, typeMouvement);
 
     res.status(200).send(sqlReponse);
   } catch (error) {
