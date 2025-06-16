@@ -3,10 +3,6 @@ const comptesRepository = require('../repositories/comptesRepository');
 
 const UserNotFoundError = require('../errors/utilisateursError').UserNotFoundError;
 
-exports.getAllUsers = async function() {
-    return await utilisateursRepository.getAllUsers();
-}
-
 exports.getUserbyLogin = async function(username) {
     const response = await utilisateursRepository.getUserByLogin(username);
     if (response.length === 0) {
@@ -25,20 +21,9 @@ exports.getUserById = async function(id) {
     return response[0];
 }
 
-exports.getUserAccounts = async function(id) {
-    const sqlReponse = await utilisateursRepository.getUserAccounts(id);
-
-    if (sqlReponse.length === 0) {
-      throw new UserNotFoundError(id);
-    }
-
-    return sqlReponse;
-}
-
 exports.getUserAccountMovements = async function(userId, accountId) {
     return await utilisateursRepository.getUserAccountMovements(userId, accountId);
 }
-
 
 exports.getTiersByUserId = async function(id) {
     const result = await utilisateursRepository.getTiersByUserId(id);

@@ -1,8 +1,8 @@
 const comptesRepository = require('../repositories/comptesRepository');
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 
-exports.getAllComptes = async function() {
-    return await comptesRepository.getAllComptes();
+exports.getAllComptes = async function(id) {
+    return await comptesRepository.getAllComptes(id);
 }
 
 exports.getCompteById = async function(id) {

@@ -1,8 +1,8 @@
 const mysql = require('../mysql').client;
 
-exports.getAllComptes = async function() {
+exports.getAllComptes = async function(id) {
     return new Promise(function(resolve) {
-        mysql.query('SELECT * FROM compte', (err, rows) => {
+        mysql.query('SELECT * FROM compte WHERE idUtilisateur = ?', [id], (err, rows) => {
             if (err) throw err;
             resolve(rows);
         });

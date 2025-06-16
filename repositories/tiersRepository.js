@@ -1,8 +1,8 @@
 const mysql = require('../mysql').client;
 
-exports.getAllTiers = async function() {
+exports.getAllTiers = async function(id) {
     return new Promise(function(resolve, reject) {
-        mysql.query('SELECT * FROM tiers', (err, rows) => {
+        mysql.query('SELECT * FROM tiers WHERE userId = ?', [id], (err, rows) => {
             if (err) {
                 reject(err);
             } else {
@@ -12,9 +12,9 @@ exports.getAllTiers = async function() {
     });
 }
 
-exports.getTierById = async function(id) {
+exports.getTierById = async function(id, userId) {
     return new Promise(function(resolve, reject) {
-        mysql.query('SELECT * FROM tiers WHERE idTiers = ?', [id], (err, rows) => {
+        mysql.query('SELECT * FROM tiers WHERE idTiers = ? AND userId = ?', [id, userId], (err, rows) => {
             if (err) {
                 reject(err);
             } else {
