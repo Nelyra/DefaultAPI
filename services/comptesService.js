@@ -1,5 +1,6 @@
 const comptesRepository = require('../repositories/comptesRepository');
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
+const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
 
 exports.getAllComptes = async function(id) {
     return await comptesRepository.getAllComptes(id);
@@ -25,4 +26,20 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
     await this.getCompteById(id); // Ensure the compte exists
 
     return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
+}
+
+exports.updateCompte = async function(id, updatedData, userId) {
+    const compte = await this.getCompteById(id); // Ensure the compte exists
+
+    if(!compte) {
+        throw new CompteNotFoundError(id);
+    }
+
+    if(compte.idUtilisateur !== userId) {
+        throw new CompteUnauthorizedError(id);
+    }
+
+    await comptesRepository.updateCompte(id, updatedData);
+
+    return await this.getCompteById(id);
 }
