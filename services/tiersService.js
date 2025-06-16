@@ -53,3 +53,11 @@ exports.updateTier = async function(id, tierData, userId) {
 
     return await this.getTierById(id, userId);
 }
+
+exports.createTier = async function(tier, userId) {
+    if (!tier.nomTiers) {
+        throw new Error('Tier must have nomTiers');
+    }
+
+    return await tiersRepo.createTier(tier, userId);
+}

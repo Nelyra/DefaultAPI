@@ -66,7 +66,6 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
         });
     });
 }
-
 deleteMouvementOnAccount = async function(idCompte){
     return new Promise(function(resolve, reject) {
         mysql.query('DELETE FROM mouvement WHERE idCompte = ?', [idCompte], (err, rows) => {
@@ -90,4 +89,31 @@ exports.deleteAccount = async function(userId, idCompte){
             }
         })
     })
+}
+
+exports.createCompte = async function(compte) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('INSERT INTO compte SET ?', compte, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    });
+}
+
+exports.createVirement = async function(virement) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('INSERT INTO virement SET ?', virement, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    }); 
+}
+
+exports.createMouvement = async function(mouvement) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('INSERT INTO mouvement SET ?', mouvement, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    });
 }

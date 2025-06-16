@@ -62,9 +62,22 @@ exports.deleteTiers = async function(idTiers){
     })
 }
 
-exports.updateTier = async function(id, tierData, userId) {
+/*exports.updateTier = async function(id, tierData, userId) {
     return new Promise(function(resolve, reject) {
         mysql.query('UPDATE tiers SET ? WHERE idTiers = ? AND idUtilisateur = ?', [tierData, id, userId], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}*/
+
+exports.createTier = async function(tier, userId) {
+    return new Promise(function(resolve, reject) {
+        const query = 'INSERT INTO tiers (nomTiers, idUtilisateur) VALUES (?, ?)';
+        mysql.query(query, [tier.nomTiers, userId], (err, result) => {
             if (err) {
                 reject(err);
             } else {
