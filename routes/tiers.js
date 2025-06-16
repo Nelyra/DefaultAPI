@@ -8,13 +8,14 @@ module.exports = router;
 
 router.get('/', auth.verifyToken, async function(req, res, next) {
   try {
-    const tiers = await tiersService.getAllTiers(req.user.id);
+    const tiers = await tiersService.getTiersByUserId(req.user.id);
 
     return res.status(200).send(tiers);
   } catch (error) {
     next(error);
   }
 });
+
 
 router.get('/:id', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
@@ -40,9 +41,6 @@ router.patch('/:id', auth.verifyToken, async function(req, res, next) {
 
     return res.status(200).send(updatedTier);
   } catch (error) {
-    if (error instanceof TiersNotFoundError) {
-      return res.status(404).send({ message: error.message });
-    }
     next(error);
   }
 });
