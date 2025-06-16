@@ -23,3 +23,16 @@ exports.getTierById = async function(id, userId) {
         });
     });
 }
+
+exports.createTier = async function(tier, userId) {
+    return new Promise(function(resolve, reject) {
+        const query = 'INSERT INTO tiers (nomTiers, idUtilisateur) VALUES (?, ?)';
+        mysql.query(query, [tier.nomTiers, userId], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}

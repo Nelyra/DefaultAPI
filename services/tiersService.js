@@ -14,3 +14,11 @@ exports.getTierById = async function(id, userId) {
 
     return result[0];
 }
+
+exports.createTier = async function(tier, userId) {
+    if (!tier.nomTiers) {
+        throw new Error('Tier must have nomTiers');
+    }
+
+    return await tiersRepo.createTier(tier, userId);
+}

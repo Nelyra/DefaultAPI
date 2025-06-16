@@ -53,3 +53,48 @@ router.get('/:id/virements', auth.verifyToken, async function(req, res, next) {
     next(error)
   }
 });
+
+router.post('/', auth.verifyToken, async function(req, res, next) {
+  const compte = req.body;
+
+  try {
+    const result = await comptesService.createCompte(compte);
+    compte.idCompte = result.insertId; // Inserting the ID
+
+    res.status(201).send(compte);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/:id/virements', auth.verifyToken, async function(req, res, next) {
+  const id = req.params.id;
+  const virement = req.body;
+
+  try {
+    virement.idCompteDebit = id;
+    const result = await comptesService.createVirement(virement);
+    virement.idVirement = result.insertId; // Inserting the ID
+
+    res.status(201).send(virement);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/:id/mouvements', auth.verifyToken, async function(req, res, next) {
+  const id = req.params.id;
+  const mouvement = req.body;
+
+  try {
+    mouvement.idCompte = id;
+    const result = await comptesService.createMouvement(mouvement);
+    mouvement.idMouvement = result.insertId; // Inserting the ID
+    
+    console.log('Mouvement created:', mouvement);
+
+    res.status(201).send(mouvement);
+  } catch (error) {
+    next(error);
+  }
+});

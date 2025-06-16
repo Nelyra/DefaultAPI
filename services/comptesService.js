@@ -26,3 +26,23 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
 
     return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
 }
+
+exports.createCompte = async function(compte) {
+    return await comptesRepository.createCompte(compte);
+}
+
+exports.createVirement = async function(virement) {
+    if (!virement.idCompteCredit || !virement.montant) {
+        throw new Error('Virement must have idCompteCredit and montant');
+    }
+
+    return await comptesRepository.createVirement(virement);
+}
+
+exports.createMouvement = async function(mouvement) {
+    if (!mouvement.montant || !mouvement.typeMouvement) {
+        throw new Error('Mouvement must have montant and typeMouvement');
+    }
+
+    return await comptesRepository.createMouvement(mouvement);
+}

@@ -27,3 +27,16 @@ router.get('/:id', auth.verifyToken, async function(req, res, next) {
     next(error);
   }
 });
+
+router.post('/', auth.verifyToken, async function(req, res, next) {
+  const tier = req.body;
+
+  try {
+    const result = await tiersService.createTier(tier, req.user.id);
+    tier.idTiers = result.insertId; // Inserting the ID
+
+    return res.status(201).send(tier);
+  } catch (error) {
+    next(error);
+  }
+});
