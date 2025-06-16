@@ -1,4 +1,6 @@
 const comptesRepository = require('../repositories/comptesRepository');
+const utilisateursRepository = require("../repositories/utilisateursRepository");
+const {UserNotFoundError} = require("../errors/utilisateursError");
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
 
@@ -19,7 +21,7 @@ exports.getCompteById = async function(id) {
 exports.getMouvementsByCompteId = async function(id, category, subCategory) {
     await this.getCompteById(id); // Ensure the compte exists
 
-    return await comptesRepository.getMouvementsByCompteId(id, category, subCategory);
+    return  comptesRepository.getMouvementsByCompteId(id, category, subCategory);
 }
 
 exports.getVirementsByCompteId = async function(id, typeMouvement) {
@@ -41,5 +43,35 @@ exports.updateCompte = async function(id, updatedData, userId) {
 
     await comptesRepository.updateCompte(id, updatedData);
 
-    return await this.getCompteById(id);
+    return await this.getCompteById(id); 
+}
+
+exports.deleteAccount = async function(idUser, idCompte) {
+    const response =  await comptesRepository.deleteAccount(idUser, idCompte);
+
+    if (response.length === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    return response[0];
+}
+
+exports.createCompte = async function(compte) {
+    return await comptesRepository.createCompte(compte);
+}
+
+exports.createVirement = async function(virement) {
+    if (!virement.idCompteCredit || !virement.montant) {
+        throw new Error('Virement must have idCompteCredit and montant');
+    }
+
+    return await comptesRepository.createVirement(virement);
+}
+
+exports.createMouvement = async function(mouvement) {
+    if (!mouvement.montant || !mouvement.typeMouvement) {
+        throw new Error('Mouvement must have montant and typeMouvement');
+    }
+
+    return await comptesRepository.createMouvement(mouvement);
 }

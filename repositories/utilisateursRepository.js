@@ -44,3 +44,15 @@ exports.getTiersByUserId = async function(id) {
         })
     })
 }
+
+exports.deleteUser = async function(userId){
+    return new Promise(function(resolve, reject) {
+        mysql.query('DELETE FROM utilisateur WHERE idUtilisateur = ?', [userId], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+}

@@ -78,3 +78,55 @@ exports.updateCompte = async function(id, updatedData) {
         });
     });
 }
+
+deleteMouvementOnAccount = async function(idCompte){
+    return new Promise(function(resolve, reject) {
+        mysql.query('DELETE FROM mouvement WHERE idCompte = ?', [idCompte], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+}
+
+exports.deleteAccount = async function(userId, idCompte){
+    await deleteMouvementOnAccount(idCompte);
+    return new Promise(function(resolve, reject) {
+        mysql.query('DELETE FROM compte WHERE idUtilisateur = ? AND idCompte = ?', [userId, idCompte], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+}
+
+exports.createCompte = async function(compte) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('INSERT INTO compte SET ?', compte, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    });
+}
+
+exports.createVirement = async function(virement) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('INSERT INTO virement SET ?', virement, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    }); 
+}
+
+exports.createMouvement = async function(mouvement) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('INSERT INTO mouvement SET ?', mouvement, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    });
+}
