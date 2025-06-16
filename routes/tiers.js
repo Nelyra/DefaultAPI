@@ -27,3 +27,22 @@ router.get('/:id', auth.verifyToken, async function(req, res, next) {
     next(error);
   }
 });
+
+router.patch('/:id', auth.verifyToken, async function(req, res, next) {
+  const id = req.params.id;
+
+  const tierData = {
+    nomTiers: req.body["nomTiers"],
+  }
+
+  try {
+    const updatedTier = await tiersService.updateTier(id, tierData, req.user.id);
+
+    return res.status(200).send(updatedTier);
+  } catch (error) {
+    if (error instanceof TiersNotFoundError) {
+      return res.status(404).send({ message: error.message });
+    }
+    next(error);
+  }
+});
