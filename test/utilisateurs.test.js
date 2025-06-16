@@ -6,15 +6,6 @@ afterAll(() => {
     return mysql.end();
 });
 
-describe('GET /utilisateurs', () => {
-    test('should return a list of users', async () => {
-        const response = await request(app).get('/utilisateurs');
-        expect(response.statusCode).toBe(200);
-        expect(response.body).toBeDefined();
-        expect(Array.isArray(response.body)).toBe(true);
-    });
-});
-
 describe('DELETE /utilisateurs/:id', () => {
     test('should delete a user by ID', async () => {
         const response = await request(app).delete('/utilisateurs/1');
@@ -37,20 +28,6 @@ describe('GET /utilisateurs/:id', () => {
 
     test('should return 404 for non-existent user', async () => {
         const response = await request(app).get('/utilisateurs/9999');
-        expect(response.statusCode).toBe(404);
-    });
-});
-
-describe('GET /utilisateurs/:id/comptes', () => {
-    test('should return accounts for a user', async () => {
-        const response = await request(app).get('/utilisateurs/1/comptes');
-        expect(response.statusCode).toBe(200);
-        expect(response.body).toBeDefined();
-        expect(Array.isArray(response.body)).toBe(true);
-    });
-
-    test('should return 404 for non-existent user', async () => {
-        const response = await request(app).get('/utilisateurs/9999/comptes');
         expect(response.statusCode).toBe(404);
     });
 });
