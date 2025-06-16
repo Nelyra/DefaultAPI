@@ -46,6 +46,8 @@ app.use(function(err, req, res) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+  console.log(err.statusCode);
+
   // render the error page
   res.status(err.statusCode || 500);
   res.render('error', { error: err });

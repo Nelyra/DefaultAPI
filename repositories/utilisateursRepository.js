@@ -9,7 +9,7 @@ exports.getUserById = async function(id) {
     })
 }
 
-exports.getUserByLogin = async function(username) {
+exports.getUserByLogin   = async function(username) {
     return new Promise(function(resolve) {
         mysql.query('SELECT * FROM utilisateur WHERE login = ?', [username], (err, rows) => {
             if (err) throw err;
