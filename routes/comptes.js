@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const comptesService = require('../services/comptesService');
+const auth = require('../auth');
 
 module.exports = router;
 
-router.get('/', async function(req, res, next) {
+router.get('/', auth.verifyToken, async function(req, res, next) {
   try {
     const comptes = await comptesService.getAllComptes(req.user.id);
     
@@ -14,7 +15,7 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-router.get('/:id', async function(req, res, next) {
+router.get('/:id', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
 
   try {
@@ -26,7 +27,7 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
-router.get('/:id/mouvements', async function(req, res, next) {
+router.get('/:id/mouvements', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
   const category = req.query.categorie;
   const subCategory = req.query["sous-categorie"];
@@ -40,7 +41,7 @@ router.get('/:id/mouvements', async function(req, res, next) {
   }
 });
 
-router.get('/:id/virements', async function(req, res, next) {
+router.get('/:id/virements', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
   const typeMouvement = req.query.typeMouvement;
 
