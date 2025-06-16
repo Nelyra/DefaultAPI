@@ -1,4 +1,6 @@
 const comptesRepository = require('../repositories/comptesRepository');
+const utilisateursRepository = require("../repositories/utilisateursRepository");
+const {UserNotFoundError} = require("../errors/utilisateursError");
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 
 exports.getAllComptes = async function(id) {
@@ -18,11 +20,21 @@ exports.getCompteById = async function(id) {
 exports.getMouvementsByCompteId = async function(id, category, subCategory) {
     await this.getCompteById(id); // Ensure the compte exists
 
-    return await comptesRepository.getMouvementsByCompteId(id, category, subCategory);
+    return  comptesRepository.getMouvementsByCompteId(id, category, subCategory);
 }
 
 exports.getVirementsByCompteId = async function(id, typeMouvement) {
     await this.getCompteById(id); // Ensure the compte exists
 
     return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
+}
+
+exports.deleteAccount = async function(idUser, idCompte) {
+    const response =  await comptesRepository.deleteAccount(idUser, idCompte);
+
+    if (response.length === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    return response[0];
 }

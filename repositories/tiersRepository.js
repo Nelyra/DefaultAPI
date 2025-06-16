@@ -36,6 +36,32 @@ exports.getTierById = async function(idTiers,idUtilisateur) {
     });
 }
 
+UpdateMouvementForTierDeletion = async function(var_idTier){
+    return new Promise(function(resolve, reject) {
+        mysql.query('UPDATE mouvement SET idTiers = NULL WHERE idTiers = ?', [var_idTier], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+}
+
+exports.deleteTiers = async function(idTiers){
+    await UpdateMouvementForTierDeletion(idTiers);
+
+    return new Promise(function(resolve, reject) {
+        mysql.query('DELETE FROM tiers WHERE idTiers = ?', [idTiers], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+}
+
 exports.updateTier = async function(id, tierData, userId) {
     return new Promise(function(resolve, reject) {
         mysql.query('UPDATE tiers SET ? WHERE idTiers = ? AND idUtilisateur = ?', [tierData, id, userId], (err, result) => {

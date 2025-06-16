@@ -84,3 +84,14 @@ exports.getUserVirementsById = async function(id, typeMouvement) {
         virements: virements
     };
 }
+
+
+exports.deleteUser = async function(id) {
+    const response =  await utilisateursRepository.deleteUser(id);
+
+    if (response.length === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    return response[0];
+}

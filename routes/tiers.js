@@ -3,6 +3,7 @@ const router = express.Router();
 const tiersService = require('../services/tiersService');
 const TiersNotFoundError = require('../errors/tiersError').TiersNotFoundError;
 const auth = require('../auth');
+const comptesService = require("../services/comptesService");
 
 module.exports = router;
 
@@ -29,6 +30,18 @@ router.get('/:id', auth.verifyToken, async function(req, res, next) {
   }
 });
 
+
+router.delete('/:id', auth.verifyToken, async function(req, res, next) {
+  const idTiers = req.params.id;
+  try {
+    const sqlReponse = await tiersService.deleteTiers(req.user.id, idTiers);
+    res.status(200).send(sqlReponse);
+  } 
+  catch (error) {
+    next(error);
+  }
+});
+  
 router.patch('/:id', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
 

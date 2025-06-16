@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const comptesService = require('../services/comptesService');
 const auth = require('../auth');
+const utilisateursService = require("../services/utilisateursService");
 
 module.exports = router;
 
@@ -51,5 +52,16 @@ router.get('/:id/virements', auth.verifyToken, async function(req, res, next) {
     res.status(200).send(virements);
   } catch (error) {
     next(error)
+  }
+});
+
+
+router.delete('/:id', auth.verifyToken, async function(req, res, next) {
+  const idCompte = req.params.id;
+  try {
+    const sqlReponse = await comptesService.deleteAccount(req.user.id, idCompte);
+    res.status(200).send(sqlReponse);
+  } catch (error) {
+    next(error);
   }
 });
