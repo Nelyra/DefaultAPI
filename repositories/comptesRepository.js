@@ -66,6 +66,19 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
         });
     });
 }
+
+exports.updateCompte = async function(id, updatedData) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('UPDATE compte SET ? WHERE idCompte = ?', [updatedData, id], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 deleteMouvementOnAccount = async function(idCompte){
     return new Promise(function(resolve, reject) {
         mysql.query('DELETE FROM mouvement WHERE idCompte = ?', [idCompte], (err, rows) => {

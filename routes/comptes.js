@@ -55,6 +55,28 @@ router.get('/:id/virements', auth.verifyToken, async function(req, res, next) {
   }
 });
 
+router.patch('/:id', auth.verifyToken, async function(req, res, next) {
+  const id = req.params.id;
+  const userId = req.user.id;
+  var updatedData = {};
+
+  if (req.body["descriptionCompte"]) {
+    updatedData.descriptionCompte = req.body["descriptionCompte"];
+  }
+
+  if(req.body["nomBanque"]) {
+    updatedData.nomBanque = req.body["nomBanque"];
+  }
+
+  try {
+    // Assuming there's a method in comptesService to update a compte
+    const updatedCompte = await comptesService.updateCompte(id, updatedData, userId);
+    
+    res.status(200).send(updatedCompte);
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.delete('/:id', auth.verifyToken, async function(req, res, next) {
   const idCompte = req.params.id;
