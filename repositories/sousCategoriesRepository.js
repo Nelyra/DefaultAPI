@@ -17,3 +17,33 @@ exports.getSubCategoryById = async function(id) {
         });
     });
 }
+
+exports.createSubCategory = async function(nomSousCategorie, idSousCategorie, idCategorie) {
+    fields = 'nomSousCategorie, idCategorie';
+    values = '?, ?';
+    data = [nomSousCategorie, idCategorie];
+
+    if(idSousCategorie) {
+        fields += ', idSousCategorie';
+        values += ', ?';
+        data.push(idSousCategorie);
+    }
+
+
+
+    return new Promise(function(resolve) {
+        mysql.query(`INSERT INTO souscategorie (${fields}) VALUES (${values})`, data, (err, result) => {
+            if (err) throw err;
+            resolve(result);
+        })
+    })
+}
+
+exports.deleteSubCategoryById = async function(id) {
+    return new Promise(function(resolve) {
+        mysql.query('DELETE FROM souscategorie WHERE idSousCategorie = ?', [id], (err, result) => {
+            if (err) throw err;
+            resolve(result);
+        });
+    });
+}
