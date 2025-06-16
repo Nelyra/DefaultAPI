@@ -1,4 +1,6 @@
 const mysql = require('mysql');
+const dotenv = require('dotenv');
+dotenv.config();
 
 exports.client = mysql.createPool({
     connectionLimit: 10,
