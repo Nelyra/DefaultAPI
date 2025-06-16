@@ -1,6 +1,18 @@
 const mysql = require('../mysql').client;
 
-exports.getAllTiers = async function(idUtilisateur) {
+exports.getAllTiers = async function() {
+    return new Promise(function(resolve, reject) {
+        mysql.query('SELECT * FROM tiers', (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+}
+
+exports.getTiersByUserId = async function(idUtilisateur) {
     return new Promise(function(resolve, reject) {
         mysql.query('SELECT * FROM tiers WHERE idUtilisateur = ?', [idUtilisateur], (err, rows) => {
             if (err) {
@@ -19,6 +31,18 @@ exports.getTierById = async function(idTiers,idUtilisateur) {
                 reject(err);
             } else {
                 resolve(rows);
+            }
+        });
+    });
+}
+
+exports.updateTier = async function(id, tierData, userId) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('UPDATE tiers SET ? WHERE idTiers = ? AND idUtilisateur = ?', [tierData, id, userId], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
             }
         });
     });
