@@ -1,5 +1,5 @@
 const utilisateursRepository = require('../repositories/utilisateursRepository')
-const comptesRepository = require('../repositories/comptesRepository');
+const comptesService = require('../services/comptesService');
 
 const UserNotFoundError = require('../errors/utilisateursError').UserNotFoundError;
 
@@ -35,8 +35,8 @@ exports.getTiersByUserId = async function(id) {
     return result;
 }
 
-exports.getUserMouvements = async function(id, category, subCategory) {
-    const sqlResponse = await this.getUserAccounts(id);
+exports.getUserMouvementsById = async function(id, category, subCategory) {
+    const sqlResponse = await comptesService.getAllComptes(id);
 
     if (sqlResponse.length === 0) {
         throw new UserNotFoundError(id);
@@ -46,7 +46,7 @@ exports.getUserMouvements = async function(id, category, subCategory) {
 
     for (const compte of sqlResponse) {
         promises.push(
-            comptesRepository.getMouvementsByCompteId(compte.idCompte, category, subCategory)
+            comptesService.getMouvementsByCompteId(compte.idCompte, category, subCategory)
         );
     }
 
@@ -60,8 +60,8 @@ exports.getUserMouvements = async function(id, category, subCategory) {
     };
 }
 
-exports.getUserVirements = async function(id, typeMouvement) {
-    const sqlResponse = await this.getUserAccounts(id);
+exports.getUserVirementsById = async function(id, typeMouvement) {
+    const sqlResponse = await comptesService.getAllComptes(id);
 
     if (sqlResponse.length === 0) {
         throw new UserNotFoundError(id);
@@ -71,7 +71,7 @@ exports.getUserVirements = async function(id, typeMouvement) {
 
     for (const compte of sqlResponse) {
         promises.push(
-            comptesRepository.getVirementsByCompteId(compte.idCompte, typeMouvement)
+            comptesService.getVirementsByCompteId(compte.idCompte, typeMouvement)
         );
     }
 
