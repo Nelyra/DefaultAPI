@@ -4,6 +4,8 @@ const {UserNotFoundError} = require("../errors/utilisateursError");
 const { CompteMissingFieldsError } = require('../errors/comptesError');
 const { VirementMissingFieldsError } = require('../errors/comptesError');
 const { MouvementMissingFieldsError } = require('../errors/comptesError');
+
+const VirementWrongTypeSpecified = require('../errors/comptesError').VirementWrongTypeSpecified
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
 
@@ -11,11 +13,15 @@ exports.getAllComptes = async function(id) {
     return await comptesRepository.getAllComptes(id);
 }
 
-exports.getCompteById = async function(id) {
+exports.getCompteById = async function(userId, id) {
     const result = await comptesRepository.getCompteById(id);
 
     if (result.length === 0) {
         throw new CompteNotFoundError(id);
+    }
+
+    if (result[0].idUtilisateur != userId) {
+        throw new CompteUnauthorizedError(id);
     }
 
     return result[0];
@@ -33,7 +39,7 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
     if (typeMouvement && (typeMouvement == 'C' || typeMouvement == 'D')) {
         return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
     } else {
-
+        throw new VirementWrongTypeSpecified(typeMouvement);
     }
 }
 
@@ -54,20 +60,25 @@ exports.updateCompte = async function(id, updatedData, userId) {
 }
 
 exports.deleteAccount = async function(idUser, idCompte) {
+    await this.getCompteById(idUser, idCompte); // Ensure the compte exists
+
     const response =  await comptesRepository.deleteAccount(idUser, idCompte);
 
-    if (response.length === 0) {
-        throw new UserNotFoundError(id);
+    if (response.affectedRows === 0) {
+        throw new CompteNotFoundError(idCompte);
     }
 
     return response[0];
 }
 
-exports.createCompte = async function(compte) {
+exports.createCompte = async function(userId, compte) {
+
     if (!compte.descriptionCompte || !compte.nomBanque) {
         throw new CompteMissingFieldsError(['descriptionCompte', 'nomBanque']);
     }
-    return await comptesRepository.createCompte(compte);
+    const result = await comptesRepository.createCompte(compte);
+
+    return await comptesRepository.getCompteById(result.insertId);
 }
 
 exports.createVirement = async function(virement) {

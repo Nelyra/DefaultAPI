@@ -15,21 +15,30 @@ exports.getTiersByUserId = async function(id) {
 }
 
 exports.getTierById = async function(id, userId) {
-    const result = await tiersRepository.getTierById(id, userId);
+    const result = await tiersRepository.getTierById(id);
 
     if (result.length === 0) {
         throw new TiersNotFoundError(id);
+    }
+
+    if (result[0].idUtilisateur != userId) {
+        throw new TiersNotAuthorizedError(id);
     }
 
     return result[0];
 }
 
 
-exports.deleteTiers = async function(id) {
+exports.deleteTiers = async function(userId, id) {
+    // Check if the tier exists and belongs to the user
+    await this.getTierById(id, userId);
+
     const response =  await tiersRepository.deleteTiers(id);
 
-    if (response.length === 0) {
-        throw new UserNotFoundError(id);
+    console.log("Response from deleteTiers:", response);
+
+    if (response.affectedRows === 0) {
+        throw new TiersNotFoundError(id);
     }
     return response[0];
 }

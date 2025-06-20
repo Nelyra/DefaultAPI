@@ -1,6 +1,8 @@
 const utilisateursRepository = require('../repositories/utilisateursRepository')
 const comptesService = require('../services/comptesService');
 
+const auth = require('../auth');
+
 const UserNotFoundError = require('../errors/utilisateursError').UserNotFoundError;
 
 exports.getUserbyLogin = async function(username) {
@@ -83,6 +85,23 @@ exports.getUserVirementsById = async function(id, typeMouvement) {
         idUtilisateur: id,
         virements: virements
     };
+}
+
+exports.updateUser = async function(id, userData) {
+    // Format the password if it exists
+    if (userData.mdp) {
+        userData.hashCode = auth.hashPassword(userData.mdp);
+    }
+
+    console.log("Updating user with data:", userData);
+
+    const response = await utilisateursRepository.updateUser(id, userData);
+
+    if (response.affectedRows === 0) {
+        throw new UserNotFoundError(id);
+    }
+
+    return await this.getUserById(id);
 }
 
 

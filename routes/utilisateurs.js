@@ -35,6 +35,32 @@ router.get('/virements', auth.verifyToken, async function(req, res, next) {
   }
 });
 
+router.patch('/', auth.verifyToken, async function(req, res, next) {
+  var userData = {};
+
+  if (req.body.prenomUtilisateur)
+    userData['prenomUtilisateur'] = req.body.prenomUtilisateur;
+  if (req.body.nom)
+    userData['nom'] = req.body.nom;
+  if (req.body.email)
+    userData['email'] = req.body.email;
+  if (req.body.mdp)
+    userData['mdp'] = req.body.mdp;
+  if (req.body.ville)
+    userData['ville'] = req.body.ville;
+  if (req.body.codePostal)
+    userData['codePostal'] = req.body.codePostal;
+
+  try {
+    const updatedUser = await utilisateursService.updateUser(req.user.id, userData);
+
+    return res.status(200).send(updatedUser);
+  } catch (error) {
+    errorHandler.display(error, req, res);
+  }
+
+})
+
 
 router.delete('/', auth.verifyToken, async function(req, res, next) {
   try {

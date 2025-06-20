@@ -24,9 +24,9 @@ exports.getTiersByUserId = async function(idUtilisateur) {
     });
 }
 
-exports.getTierById = async function(idTiers,idUtilisateur) {
+exports.getTierById = async function(idTiers) {
     return new Promise(function(resolve, reject) {
-        mysql.query('SELECT * FROM tiers WHERE idUtilisateur = ? AND idTiers = ?', [idUtilisateur, idTiers], (err, rows) => {
+        mysql.query('SELECT * FROM tiers WHERE idTiers = ?', [idTiers], (err, rows) => {
             if (err) {
                 reject(err);
             } else {
