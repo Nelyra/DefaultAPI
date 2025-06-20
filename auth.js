@@ -1,4 +1,10 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+exports.hashPassword = (password) => {
+    // Hash the password using bcrypt
+    return bcrypt.hashSync(password, 10);
+};
 
 exports.verifyToken = (req, res, next) => {
     try {
