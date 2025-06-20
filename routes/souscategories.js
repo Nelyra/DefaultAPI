@@ -39,18 +39,3 @@ router.get('/:id', async function(req, res, next) {
         errorHandler.display(error, req, res);
     }
 });
-
-router.delete('/:id', async function(req, res, next) {
-    const id = req.params.id;
-
-    try {
-        const sqlResponse = await sousCategoriesService.getSubCategoryById(id);
-        
-        // Assuming a delete function exists in the service
-        await sousCategoriesService.deleteSubCategory(id);
-
-        res.status(204).send();
-    } catch (error) {
-        errorHandler.display(error, req, res);
-    }
-});
