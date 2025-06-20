@@ -1,6 +1,9 @@
 const comptesRepository = require('../repositories/comptesRepository');
 const utilisateursRepository = require("../repositories/utilisateursRepository");
 const {UserNotFoundError} = require("../errors/utilisateursError");
+const { CompteMissingFieldsError } = require('../errors/comptesError');
+const { VirementMissingFieldsError } = require('../errors/comptesError');
+const { MouvementMissingFieldsError } = require('../errors/comptesError');
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
 
@@ -58,14 +61,14 @@ exports.deleteAccount = async function(idUser, idCompte) {
 
 exports.createCompte = async function(compte) {
     if (!compte.descriptionCompte || !compte.nomBanque) {
-        throw new Error('Compte must have descriptionCompte and nomBanque');
+        throw new CompteMissingFieldsError(['descriptionCompte', 'nomBanque']);
     }
     return await comptesRepository.createCompte(compte);
 }
 
 exports.createVirement = async function(virement) {
     if (!virement.idCompteCredit || !virement.montant) {
-        throw new Error('Virement must have idCompteCredit and montant');
+        throw new VirementMissingFieldsError(['idCompteCredit', 'montant']);
     }
 
     return await comptesRepository.createVirement(virement);
@@ -73,7 +76,7 @@ exports.createVirement = async function(virement) {
 
 exports.createMouvement = async function(mouvement) {
     if (!mouvement.montant || !mouvement.typeMouvement) {
-        throw new Error('Mouvement must have montant and typeMouvement');
+        throw new MouvementMissingFieldsError(['montant', 'typeMouvement']);
     }
 
     return await comptesRepository.createMouvement(mouvement);
