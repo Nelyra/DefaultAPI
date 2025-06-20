@@ -4,6 +4,7 @@ const tiersService = require('../services/tiersService');
 const TiersNotFoundError = require('../errors/tiersError').TiersNotFoundError;
 const auth = require('../auth');
 const comptesService = require("../services/comptesService");
+const errorHandler = require('../error');
 
 module.exports = router;
 
@@ -13,7 +14,7 @@ router.get('/', auth.verifyToken, async function(req, res, next) {
 
     return res.status(200).send(tiers);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -26,7 +27,7 @@ router.get('/:id', auth.verifyToken, async function(req, res, next) {
 
     return res.status(200).send(tier);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -38,7 +39,7 @@ router.delete('/:id', auth.verifyToken, async function(req, res, next) {
     res.status(200).send(sqlReponse);
   } 
   catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
   
@@ -57,7 +58,7 @@ router.patch('/:id', auth.verifyToken, async function(req, res, next) {
     if (error instanceof TiersNotFoundError) {
       return res.status(404).send({ message: error.message });
     }
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -70,6 +71,6 @@ router.post('/', auth.verifyToken, async function(req, res, next) {
 
     return res.status(201).send(tier);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });

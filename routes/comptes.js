@@ -38,7 +38,7 @@ router.get('/:id/mouvements', auth.verifyToken, async function(req, res, next) {
     
     res.status(200).send(mouvements);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -51,7 +51,7 @@ router.get('/:id/virements', auth.verifyToken, async function(req, res, next) {
     
     res.status(200).send(virements);
   } catch (error) {
-    next(error)
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -74,7 +74,7 @@ router.patch('/:id', auth.verifyToken, async function(req, res, next) {
     
     res.status(200).send(updatedCompte);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -84,7 +84,7 @@ router.delete('/:id', auth.verifyToken, async function(req, res, next) {
     const sqlReponse = await comptesService.deleteAccount(req.user.id, idCompte);
     res.status(200).send(sqlReponse);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -97,7 +97,7 @@ router.post('/', auth.verifyToken, async function(req, res, next) {
 
     res.status(201).send(compte);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -112,7 +112,7 @@ router.post('/:id/virements', auth.verifyToken, async function(req, res, next) {
 
     res.status(201).send(virement);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -129,6 +129,6 @@ router.post('/:id/mouvements', auth.verifyToken, async function(req, res, next) 
 
     res.status(201).send(mouvement);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
