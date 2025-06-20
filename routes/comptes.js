@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const comptesService = require('../services/comptesService');
 const auth = require('../auth');
-const utilisateursService = require("../services/utilisateursService");
+const errorHandler = require('../error')
 
 module.exports = router;
 
@@ -12,7 +12,7 @@ router.get('/', auth.verifyToken, async function(req, res, next) {
     
     res.status(200).send(comptes);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -24,7 +24,7 @@ router.get('/:id', auth.verifyToken, async function(req, res, next) {
     
     res.status(200).send(compte);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
