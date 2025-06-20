@@ -51,7 +51,7 @@ You can now run the API using a simple command:
 npm run start
 ```
 
-The API will be ran locally on [localhost:8000](http://localhost:8000).
+The API will be ran locally on [localhost:8000](http://localhost:3000).
 
 ## Running automatic tests onto the API
 
