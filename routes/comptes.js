@@ -92,6 +92,7 @@ router.post('/', auth.verifyToken, async function(req, res, next) {
   const compte = req.body;
 
   try {
+    compte.idUtilisateur = req.user.id;
     const result = await comptesService.createCompte(compte);
     compte.idCompte = result.insertId; // Inserting the ID
 
