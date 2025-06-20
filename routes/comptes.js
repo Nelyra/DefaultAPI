@@ -82,7 +82,7 @@ router.delete('/:id', auth.verifyToken, async function(req, res, next) {
   const idCompte = req.params.id;
   try {
     const sqlReponse = await comptesService.deleteAccount(req.user.id, idCompte);
-    res.status(200).send(sqlReponse);
+    res.status(204).send(sqlReponse);
   } catch (error) {
     errorHandler.display(error, req, res);
   }
@@ -92,11 +92,9 @@ router.post('/', auth.verifyToken, async function(req, res, next) {
   const compte = req.body;
 
   try {
-    compte.idUtilisateur = req.user.id;
-    const result = await comptesService.createCompte(compte);
-    compte.idCompte = result.insertId; // Inserting the ID
+    const response = await comptesService.createCompte(req.user.id, compte);
 
-    res.status(201).send(compte);
+    res.status(200).send(response);
   } catch (error) {
     errorHandler.display(error, req, res);
   }
