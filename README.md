@@ -22,7 +22,7 @@ This will download every node package necessary for the API to be up and ready.
 
 ### Setting up the environnement secrets
 
-On the root of the project, create a `.env` file. You will need to set a few variables in this file. You can use the file `.example.env` as an example to understand what it looks like. Here's a rundown of every variable:
+On the root of the project, **create a `.env` file**. You will need to set a few variables in this file. You can use the file `.example.env` as an example to understand what it looks like. Here's a rundown of every variable:
 
 | Variable | Usage |
 | --- | --- |
@@ -53,13 +53,25 @@ npm run start
 
 The API will be ran locally on [localhost:8000](http://localhost:8000).
 
-## Running tests onto the API
+## Running automatic tests onto the API
+
+⚠️ The tests are **deprecated**. We made sure they are still working for the most basic routes, but they will not supply most extensive testing (i.e. 403 FORBIDDEN requests)
 
 We provide a series of test using [Jest](https://jestjs.io/) and [Supertest](https://www.npmjs.com/package/supertest). To start them, you use:
 
 ```bash
 npm run test
 ```
+
+## Running manually tests onto the API
+
+You can also run your own test using Postman or any other testing application you wish for the URIs. You can find a dedicated Postman collection to save you the trouble of writing the tests.
+
+The file is located in `test/tests.postman_collection.json`.
+
+Make sure to first use the `POST /authenticate` route when logging in as a specific user, and then saving the response token as an Authorization bearer. When using our own set of tests, you can save this token in the Collection variable **\{{access-token}}**.
+
+In our case, the \{{base-url}} variable should be set as `http://localhost:3000`.
 
 ## Directory structure
 

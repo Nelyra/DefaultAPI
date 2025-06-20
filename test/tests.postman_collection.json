@@ -1,0 +1,874 @@
+{
+	"info": {
+		"_postman_id": "6790f069-a2fe-4338-affa-64470660d485",
+		"name": "API Rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45865509",
+		"_collection_link": "https://namu-4852391.postman.co/workspace/DEFAULT-API-REST~64f81e61-3f2a-49fe-8184-4b66b1071ea8/collection/45865509-6790f069-a2fe-4338-affa-64470660d485?action=share&source=collection_link&creator=45865509"
+	},
+	"item": [
+		{
+			"name": "utilisateurs",
+			"item": [
+				{
+					"name": "All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/utilisateurs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"utilisateurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Mouvements",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Virements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/utilisateurs/virements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"utilisateurs",
+								"virements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Virements Debit",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Virements Crédit",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomUtilisateur\": \"Dupont\",\r\n    \"prenomUtilisateur\": \"Jean\",\r\n    \"login\": \"jdupont\",\r\n    \"ville\": \"Lille\",\r\n    \"codePostal\": \"59110\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/utilisateurs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"utilisateurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/utilisateurs",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"utilisateurs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comptes",
+			"item": [
+				{
+					"name": "Get User Accounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/comptes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/comptes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account Movements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/comptes/:id/mouvements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id",
+								"mouvements"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account Movements By category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/comptes/:id/mouvements/?categorie=1&sous-categorie=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id",
+								"mouvements",
+								""
+							],
+							"query": [
+								{
+									"key": "categorie",
+									"value": "1"
+								},
+								{
+									"key": "sous-categorie",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Account Virements",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Post Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomBanque\" : \"LBP\",\r\n    \"idUtilisateur\": 1,\r\n    \"descriptionCompte\": \"Compte courant\",\r\n    \"soldeInitial\": \"123\",\r\n    \"dernierSolde\": \"1234\"\r\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/comptes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Virement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idCompteCredit\": \"2\",\r\n    \"montant\": \"69\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/comptes/:id/virements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id",
+								"virements"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Mouvement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"typeMouvement\": \"D\",\r\n    \"montant\": \"69\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/comptes/:id/mouvements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id",
+								"mouvements"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Account",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"nomBanque\": \"Banque!\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/comptes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Account",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"jdupont\",\r\n    \"password\": \"1234\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/comptes/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tiers",
+			"item": [
+				{
+					"name": "Get Tiers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/tiers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tiers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tiers by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/tiers/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tiers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update tiers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomTiers\": \"Nouveau nom du tiers\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tiers/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tiers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tiers",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/tiers/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tiers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Tiers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomTiers\": \"Chats\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tiers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tiers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get categories",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get categories by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get sous-categories by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get subcateory from category",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GET sous-categories",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Post categories",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomCategorie\": \"Meow\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post categories",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomCategorie\": \"Meow\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"jdupont\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authenticate?",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authenticate"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"jdupont\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authenticate?",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authenticate"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "access-token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
