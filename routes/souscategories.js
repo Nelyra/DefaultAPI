@@ -17,12 +17,13 @@ router.get('/', async function(req, res, next) {
 });
 
 router.post('/', async function(req, res, next) {
-  const { nomSousCategorie, idSousCategorie, idCategorie } = req.body;
+  const sousCategorie = req.body;
 
   try {
-    const sqlResponse = await sousCategoriesService.createSubCategory(nomSousCategorie, idSousCategorie, idCategorie);
-    
-    res.status(201).send(sqlResponse);
+    const sqlResponse = await sousCategoriesService.createSubCategory(sousCategorie.nomSousCategorie, sousCategorie.idCategorie);
+    sousCategorie.idSousCategorie = sqlResponse.insertId;
+
+    res.status(201).send(sousCategorie);
   } catch (error) {
     errorHandler.display(error, req, res);
   }

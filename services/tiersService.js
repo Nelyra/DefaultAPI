@@ -1,6 +1,7 @@
 const tiersRepository = require('../repositories/tiersRepository');
 const comptesRepository = require("../repositories/comptesRepository");
 const {UserNotFoundError} = require("../errors/utilisateursError");
+const {TiersMissingFieldsError} = require('../errors/tiersError').TiersMissingFieldsError;
 const TiersNotFoundError = require('../errors/tiersError').TiersNotFoundError;
 const TiersNotAuthorizedError = require('../errors/tiersError').TiersNotAuthorizedError;
 

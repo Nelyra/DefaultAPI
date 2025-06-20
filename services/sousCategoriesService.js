@@ -18,11 +18,10 @@ exports.getSubCategoryById = async function(id) {
     return result;
 }
 
-exports.createSubCategory = async function(nomSousCategorie, idSousCategorie, idCategorie) {
-    if (!nomSousCategorie || !idSousCategorie || !idCategorie) {
+exports.createSubCategory = async function(nomSousCategorie, idCategorie) {
+    if (!nomSousCategorie || !idCategorie) {
         const missingFields = [];
         if (!nomSousCategorie) missingFields.push('nomSousCategorie');
-        if (!idSousCategorie) missingFields.push('idSousCategorie');
         if (!idCategorie) missingFields.push('idCategorie');
 
         throw new InvalidSubCategoryError(missingFields);
