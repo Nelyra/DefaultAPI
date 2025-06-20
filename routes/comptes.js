@@ -47,9 +47,10 @@ router.get('/:id/mouvements', auth.verifyToken, async function(req, res, next) {
 router.get('/:id/virements', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
   const typeMouvement = req.query.typeMouvement;
+  const userId = req.user.id;
 
   try {
-    const virements = await comptesService.getVirementsByCompteId(id, typeMouvement);
+    const virements = await comptesService.getVirementsByCompteId(id, typeMouvement, userId);
     
     res.status(200).send(virements);
   } catch (error) {

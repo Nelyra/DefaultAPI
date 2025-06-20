@@ -33,8 +33,8 @@ exports.getMouvementsByCompteId = async function(id, category, subCategory) {
     return  comptesRepository.getMouvementsByCompteId(id, category, subCategory);
 }
 
-exports.getVirementsByCompteId = async function(id, typeMouvement) {
-    await this.getCompteById(id); // Ensure the compte exists
+exports.getVirementsByCompteId = async function(id, typeMouvement, userId) {
+    await this.getCompteById(userId, id); // Ensure the compte exists
 
     if ((typeMouvement === undefined) || (typeMouvement === 'C' || typeMouvement === 'D')) {
         return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
