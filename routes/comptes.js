@@ -34,9 +34,10 @@ router.get('/:id/mouvements', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
   const category = req.query.categorie;
   const subCategory = req.query["sous-categorie"];
+  const user = req.user.id;
 
   try {
-    const mouvements = await comptesService.getMouvementsByCompteId(id, category, subCategory);
+    const mouvements = await comptesService.getMouvementsByCompteId(id, category, subCategory, user);
     
     res.status(200).send(mouvements);
   } catch (error) {
