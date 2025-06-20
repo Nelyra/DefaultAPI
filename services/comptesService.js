@@ -4,6 +4,8 @@ const {UserNotFoundError} = require("../errors/utilisateursError");
 const { CompteMissingFieldsError } = require('../errors/comptesError');
 const { VirementMissingFieldsError } = require('../errors/comptesError');
 const { MouvementMissingFieldsError } = require('../errors/comptesError');
+
+const VirementWrongTypeSpecified = require('../errors/comptesError').VirementWrongTypeSpecified
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
 
@@ -33,7 +35,7 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
     if (typeMouvement && (typeMouvement == 'C' || typeMouvement == 'D')) {
         return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
     } else {
-
+        throw new VirementWrongTypeSpecified(typeMouvement);
     }
 }
 
