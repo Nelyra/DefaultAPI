@@ -36,7 +36,7 @@ exports.getMouvementsByCompteId = async function(id, category, subCategory) {
 exports.getVirementsByCompteId = async function(id, typeMouvement) {
     await this.getCompteById(id); // Ensure the compte exists
 
-    if (typeMouvement && (typeMouvement == 'C' || typeMouvement == 'D')) {
+    if ((typeMouvement === undefined) || (typeMouvement === 'C' || typeMouvement === 'D')) {
         return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
     } else {
         throw new VirementWrongTypeSpecified(typeMouvement);
