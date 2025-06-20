@@ -44,7 +44,7 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
 }
 
 exports.updateCompte = async function(id, updatedData, userId) {
-    const compte = await this.getCompteById(id); // Ensure the compte exists
+    const compte = await this.getCompteById(userId, id); // Ensure the compte exists
 
     if(!compte) {
         throw new CompteNotFoundError(id);
@@ -56,7 +56,7 @@ exports.updateCompte = async function(id, updatedData, userId) {
 
     await comptesRepository.updateCompte(id, updatedData);
 
-    return await this.getCompteById(id); 
+    return await this.getCompteById(userId, id); 
 }
 
 exports.deleteAccount = async function(idUser, idCompte) {
