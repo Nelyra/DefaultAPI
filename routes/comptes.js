@@ -72,7 +72,7 @@ router.patch('/:id', auth.verifyToken, async function(req, res, next) {
     // Assuming there's a method in comptesService to update a compte
     const updatedCompte = await comptesService.updateCompte(id, updatedData, userId);
     
-    res.status(200).send(updatedCompte);
+    res.status(204).send(updatedCompte);
   } catch (error) {
     errorHandler.display(error, req, res);
   }

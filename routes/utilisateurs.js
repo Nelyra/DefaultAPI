@@ -39,7 +39,7 @@ router.get('/virements', auth.verifyToken, async function(req, res, next) {
 router.delete('/', auth.verifyToken, async function(req, res, next) {
   try {
     const sqlReponse = await utilisateursService.deleteUser(req.user.id);
-    res.status(200).send(sqlReponse);
+    res.status(204).send(sqlReponse);
   } catch (error) {
     errorHandler.display(error, req, res);
   }
