@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var categoriesService = require('../services/categoriesService.js');
+const errorHandler = require('../error');
 
 module.exports = router;
 
@@ -11,7 +12,7 @@ router.get('/', async function(req, res, next) {
 
     return res.status(200).send(sqlReponse);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
   
 });
@@ -25,7 +26,7 @@ router.post('/', async function(req, res, next) {
 
     res.status(201).send(category);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -38,7 +39,7 @@ router.get('/:id', async function(req, res, next) {
     res.status(200).send(sqlReponse[0]);
 
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -50,7 +51,7 @@ router.delete('/:id', async function(req, res, next) {
 
     res.status(204).send(); // No content to send back
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -63,6 +64,6 @@ router.get('/:id/sous-categories', async function(req, res, next) {
     res.status(200).send(sqlReponse);
 
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
