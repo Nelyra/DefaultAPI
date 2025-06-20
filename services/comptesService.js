@@ -57,6 +57,9 @@ exports.deleteAccount = async function(idUser, idCompte) {
 }
 
 exports.createCompte = async function(compte) {
+    if (!compte.descriptionCompte || !compte.nomBanque) {
+        throw new Error('Compte must have descriptionCompte and nomBanque');
+    }
     return await comptesRepository.createCompte(compte);
 }
 
