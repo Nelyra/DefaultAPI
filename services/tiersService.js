@@ -39,8 +39,6 @@ exports.updateTier = async function(id, tierData, userId) {
     // Check if the id exists in the user's tiers
     const tierExists = allTiers.filter(tier => tier.idTiers == id)[0];
 
-    console.log(`Tier exists: ${tierExists} for id: ${id}`);
-
     if (tierExists === undefined) {
         throw new TiersNotFoundError(id);
     }
