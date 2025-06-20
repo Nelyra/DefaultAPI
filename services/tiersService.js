@@ -6,11 +6,11 @@ const TiersNotAuthorizedError = require('../errors/tiersError').TiersNotAuthoriz
 
 
 exports.getAllTiers = async function() {
-    return await tiersRepo.getAllTiers();
+    return await tiersRepository.getAllTiers();
 }
 
 exports.getTiersByUserId = async function(id) {
-    return await tiersRepo.getTiersByUserId(id);
+    return await tiersRepository.getTiersByUserId(id);
 }
 
 exports.getTierById = async function(id, userId) {
@@ -49,7 +49,7 @@ exports.updateTier = async function(id, tierData, userId) {
         throw new TiersNotAuthorizedError(id);
     }
 
-    await tiersRepo.updateTier(id, tierData, userId);
+    await tiersRepository.updateTier(id, tierData, userId);
 
     return await this.getTierById(id, userId);
 }
@@ -59,5 +59,5 @@ exports.createTier = async function(tier, userId) {
         throw new Error('Tier must have nomTiers');
     }
 
-    return await tiersRepo.createTier(tier, userId);
+    return await tiersRepository.createTier(tier, userId);
 }
