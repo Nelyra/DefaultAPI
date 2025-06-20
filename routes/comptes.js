@@ -34,9 +34,10 @@ router.get('/:id/mouvements', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
   const category = req.query.categorie;
   const subCategory = req.query["sous-categorie"];
+  const user = req.user.id;
 
   try {
-    const mouvements = await comptesService.getMouvementsByCompteId(id, category, subCategory);
+    const mouvements = await comptesService.getMouvementsByCompteId(id, category, subCategory, user);
     
     res.status(200).send(mouvements);
   } catch (error) {
@@ -47,9 +48,10 @@ router.get('/:id/mouvements', auth.verifyToken, async function(req, res, next) {
 router.get('/:id/virements', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
   const typeMouvement = req.query.typeMouvement;
+  const userId = req.user.id;
 
   try {
-    const virements = await comptesService.getVirementsByCompteId(id, typeMouvement);
+    const virements = await comptesService.getVirementsByCompteId(id, typeMouvement, userId);
     
     res.status(200).send(virements);
   } catch (error) {
@@ -71,10 +73,9 @@ router.patch('/:id', auth.verifyToken, async function(req, res, next) {
   }
 
   try {
-    // Assuming there's a method in comptesService to update a compte
     const updatedCompte = await comptesService.updateCompte(id, updatedData, userId);
     
-    res.status(204).send(updatedCompte);
+    res.status(200).send(updatedCompte);
   } catch (error) {
     errorHandler.display(error, req, res);
   }

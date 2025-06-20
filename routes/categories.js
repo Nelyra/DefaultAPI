@@ -43,18 +43,6 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
-router.delete('/:id', async function(req, res, next) {
-  const id = req.params.id;
-
-  try {
-    const sqlReponse = await categoriesService.deleteCategoryById(id);
-
-    res.status(204).send(); // No content to send back
-  } catch (error) {
-    errorHandler.display(error, req, res);
-  }
-});
-
 router.get('/:id/sous-categories', async function(req, res, next) {
   const id = req.params.id;
 

@@ -4,10 +4,14 @@ const {UserNotFoundError} = require("../errors/utilisateursError");
 const { CompteMissingFieldsError } = require('../errors/comptesError');
 const { VirementMissingFieldsError } = require('../errors/comptesError');
 const { MouvementMissingFieldsError } = require('../errors/comptesError');
+const {CategoryNotFoundError} = require("../errors/categoriesError");
 
-const VirementWrongTypeSpecified = require('../errors/comptesError').VirementWrongTypeSpecified
+const VirementWrongTypeSpecified = require('../errors/comptesError').VirementWrongTypeSpecified;
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
+
+const getCategoryById = require('../services/categoriesService').getCategoryById;
+const getSubCategoryById = require('../services/sousCategoriesService').getSubCategoryById;
 
 exports.getAllComptes = async function(id) {
     return await comptesRepository.getAllComptes(id);
@@ -27,14 +31,25 @@ exports.getCompteById = async function(userId, id) {
     return result[0];
 }
 
-exports.getMouvementsByCompteId = async function(id, category, subCategory) {
-    await this.getCompteById(id); // Ensure the compte exists
+exports.getMouvementsByCompteId = async function(id, category, subCategory, user) {
+    await this.getCompteById(user, id); // Ensure the compte exists
 
-    return  comptesRepository.getMouvementsByCompteId(id, category, subCategory);
+    if(category !== undefined) {
+        //Verifier que la catégorie existe
+        await getCategoryById(category);
+    }
+
+    if(subCategory !== undefined) {
+        //Verifier que la sous catégorie existe
+        await getSubCategoryById(subCategory);
+    }
+
+    return await comptesRepository.getMouvementsByCompteId(id, category, subCategory);
+
 }
 
-exports.getVirementsByCompteId = async function(id, typeMouvement) {
-    await this.getCompteById(id); // Ensure the compte exists
+exports.getVirementsByCompteId = async function(id, typeMouvement, userId) {
+    await this.getCompteById(userId, id); // Ensure the compte exists
 
     if ((typeMouvement === undefined) || (typeMouvement === 'C' || typeMouvement === 'D')) {
         return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
@@ -44,7 +59,7 @@ exports.getVirementsByCompteId = async function(id, typeMouvement) {
 }
 
 exports.updateCompte = async function(id, updatedData, userId) {
-    const compte = await this.getCompteById(id); // Ensure the compte exists
+    const compte = await this.getCompteById(userId, id); // Ensure the compte exists
 
     if(!compte) {
         throw new CompteNotFoundError(id);
@@ -56,7 +71,7 @@ exports.updateCompte = async function(id, updatedData, userId) {
 
     await comptesRepository.updateCompte(id, updatedData);
 
-    return await this.getCompteById(id); 
+    return await this.getCompteById(userId, id); 
 }
 
 exports.deleteAccount = async function(idUser, idCompte) {

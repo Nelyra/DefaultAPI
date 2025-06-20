@@ -40,8 +40,8 @@ router.patch('/', auth.verifyToken, async function(req, res, next) {
 
   if (req.body.prenomUtilisateur)
     userData['prenomUtilisateur'] = req.body.prenomUtilisateur;
-  if (req.body.nom)
-    userData['nom'] = req.body.nom;
+  if (req.body.nomUtilisateur)
+    userData['nomUtilisateur'] = req.body.nomUtilisateur;
   if (req.body.email)
     userData['email'] = req.body.email;
   if (req.body.mdp)

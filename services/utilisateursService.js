@@ -93,8 +93,6 @@ exports.updateUser = async function(id, userData) {
         userData.hashCode = auth.hashPassword(userData.mdp);
     }
 
-    console.log("Updating user with data:", userData);
-
     const response = await utilisateursRepository.updateUser(id, userData);
 
     if (response.affectedRows === 0) {
