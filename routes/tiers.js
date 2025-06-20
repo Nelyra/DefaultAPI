@@ -36,7 +36,7 @@ router.delete('/:id', auth.verifyToken, async function(req, res, next) {
   const idTiers = req.params.id;
   try {
     const sqlReponse = await tiersService.deleteTiers(req.user.id, idTiers);
-    res.status(200).send(sqlReponse);
+    res.status(204).send(sqlReponse);
   } 
   catch (error) {
     errorHandler.display(error, req, res);
