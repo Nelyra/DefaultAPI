@@ -18,18 +18,10 @@ exports.getSubCategoryById = async function(id) {
     });
 }
 
-exports.createSubCategory = async function(nomSousCategorie, idSousCategorie, idCategorie) {
+exports.createSubCategory = async function(nomSousCategorie, idCategorie) {
     fields = 'nomSousCategorie, idCategorie';
     values = '?, ?';
     data = [nomSousCategorie, idCategorie];
-
-    if(idSousCategorie) {
-        fields += ', idSousCategorie';
-        values += ', ?';
-        data.push(idSousCategorie);
-    }
-
-
 
     return new Promise(function(resolve) {
         mysql.query(`INSERT INTO souscategorie (${fields}) VALUES (${values})`, data, (err, result) => {

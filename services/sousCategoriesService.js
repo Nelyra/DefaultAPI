@@ -27,13 +27,7 @@ exports.createSubCategory = async function(nomSousCategorie, idCategorie) {
         throw new InvalidSubCategoryError(missingFields);
     }
 
-    const existingSubCategory = await sousCategoriesRepository.getSubCategoryById(idSousCategorie);
-
-    if (existingSubCategory.length > 0) {
-        throw new DuplicateSubCategoryError(idSousCategorie);
-    }
-
-    return await sousCategoriesRepository.createSubCategory(nomSousCategorie, idSousCategorie, idCategorie);
+    return await sousCategoriesRepository.createSubCategory(nomSousCategorie, idCategorie);
 }
 
 exports.deleteSubCategory = async function(id) {
