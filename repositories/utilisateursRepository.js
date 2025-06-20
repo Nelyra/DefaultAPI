@@ -45,6 +45,18 @@ exports.getTiersByUserId = async function(id) {
     })
 }
 
+exports.updateUser = async function(id, userData) {
+    return new Promise(function(resolve, reject) {
+        mysql.query('UPDATE utilisateur SET ? WHERE idUtilisateur = ?', [userData, id], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        })
+    })
+}
+
 exports.deleteUser = async function(userId){
     return new Promise(function(resolve, reject) {
         mysql.query('DELETE FROM utilisateur WHERE idUtilisateur = ?', [userId], (err, rows) => {
