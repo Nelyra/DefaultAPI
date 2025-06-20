@@ -94,7 +94,9 @@ router.post('/', auth.verifyToken, async function(req, res, next) {
   const compte = req.body;
 
   try {
-    const response = await comptesService.createCompte(req.user.id, compte);
+    compte.idUtilisateur = req.user.id;
+    const response = await comptesService.createCompte(compte);
+    compte.idCompte = response.insertId;
 
     res.status(200).send(response);
   } catch (error) {
@@ -102,14 +104,12 @@ router.post('/', auth.verifyToken, async function(req, res, next) {
   }
 });
 
-router.post('/:id/virements', auth.verifyToken, async function(req, res, next) {
-  const id = req.params.id;
+router.post('/virements', auth.verifyToken, async function(req, res, next) {
   const virement = req.body;
 
   try {
-    virement.idCompteDebit = id;
-    const result = await comptesService.createVirement(virement);
-    virement.idVirement = result.insertId; // Inserting the ID
+    const result = await comptesService.createVirement(req.user.id, virement);
+    virement.idVirement = result.insertId;
 
     res.status(201).send(virement);
   } catch (error) {
@@ -123,7 +123,7 @@ router.post('/:id/mouvements', auth.verifyToken, async function(req, res, next) 
 
   try {
     mouvement.idCompte = id;
-    const result = await comptesService.createMouvement(mouvement);
+    const result = await comptesService.createMouvement(req.user.id, mouvement);
     mouvement.idMouvement = result.insertId; // Inserting the ID
     
     console.log('Mouvement created:', mouvement);

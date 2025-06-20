@@ -71,8 +71,7 @@ exports.deleteAccount = async function(idUser, idCompte) {
     return response[0];
 }
 
-exports.createCompte = async function(userId, compte) {
-
+exports.createCompte = async function(compte) {
     if (!compte.descriptionCompte || !compte.nomBanque) {
         throw new CompteMissingFieldsError(['descriptionCompte', 'nomBanque']);
     }
@@ -81,15 +80,21 @@ exports.createCompte = async function(userId, compte) {
     return await comptesRepository.getCompteById(result.insertId);
 }
 
-exports.createVirement = async function(virement) {
-    if (!virement.idCompteCredit || !virement.montant) {
-        throw new VirementMissingFieldsError(['idCompteCredit', 'montant']);
+exports.createVirement = async function(userId, virement) {
+    const compteCredit = await this.getCompteById(userId, virement.idCompteCredit);
+    const compteDebit = await this.getCompteById(userId, virement.idCompteDebit);
+
+    if (!virement.idCompteCredit || !virement.montant || !virement.idCompteDebit) {
+        throw new VirementMissingFieldsError(['idCompteCredit', 'montant', 'idCompteDebit']);
     }
 
     return await comptesRepository.createVirement(virement);
 }
 
-exports.createMouvement = async function(mouvement) {
+exports.createMouvement = async function(userId, mouvement) {
+    console.log("Creating mouvement:", mouvement);
+    const compte = await this.getCompteById(userId, mouvement.idCompte);
+    
     if (!mouvement.montant || !mouvement.typeMouvement) {
         throw new MouvementMissingFieldsError(['montant', 'typeMouvement']);
     }
