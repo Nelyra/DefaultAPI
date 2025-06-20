@@ -34,7 +34,7 @@ exports.deleteTiers = async function(id) {
 }
   
 exports.updateTier = async function(id, tierData, userId) {
-    const allTiers = await tiersRepo.getAllTiers(userId);
+    const allTiers = await tiersRepository.getAllTiers(userId);
 
     // Check if the id exists in the user's tiers
     const tierExists = allTiers.filter(tier => tier.idTiers == id)[0];
