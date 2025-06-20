@@ -22,6 +22,14 @@ exports.VirementMissingFieldsError = class VirementMissingFieldsError extends Er
     }
 }
 
+exports.VirementWrongTypeSpecified = class VirementWrongTypeSpecified extends Error {
+    constructor(fields) {
+        super(`Wrong movement type specified, must be C or D: ${fields.join(', ')}`);
+        this.name = 'VirementWrongTypeSpecified';
+        this.statusCode = 404;
+    }
+}
+
 exports.MouvementMissingFieldsError = class MouvementMissingFieldsError extends Error {
     constructor(fields) {
         super(`Missing required fields for creating a mouvement: ${fields.join(', ')}`);

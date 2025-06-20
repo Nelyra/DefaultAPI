@@ -30,7 +30,11 @@ exports.getMouvementsByCompteId = async function(id, category, subCategory) {
 exports.getVirementsByCompteId = async function(id, typeMouvement) {
     await this.getCompteById(id); // Ensure the compte exists
 
-    return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
+    if (typeMouvement && (typeMouvement == 'C' || typeMouvement == 'D')) {
+        return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
+    } else {
+
+    }
 }
 
 exports.updateCompte = async function(id, updatedData, userId) {
