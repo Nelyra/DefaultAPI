@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var authenticateService = require('../services/authenticateService.js');
+const errorHandler = require('../error');
 
 module.exports = router;
 
@@ -22,7 +23,7 @@ router.post('/', function(req, res, next) {
             }
         })
         .catch((error) => {
-            next(error);
+            errorHandler.display(error, req, res);
         });
 
 });

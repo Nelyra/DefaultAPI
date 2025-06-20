@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sousCategoriesService = require('../services/sousCategoriesService.js');
 var SubCategoryNotFoundError = require('../errors/sousCategoriesError').SubCategoryNotFoundError;
+var errorHandler = require('../error');
 
 module.exports = router;
 
@@ -11,7 +12,7 @@ router.get('/', async function(req, res, next) {
 
     return res.status(200).send(sqlResponse);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -23,7 +24,7 @@ router.post('/', async function(req, res, next) {
     
     res.status(201).send(sqlResponse);
   } catch (error) {
-    next(error);
+    errorHandler.display(error, req, res);
   }
 });
 
@@ -35,7 +36,7 @@ router.get('/:id', async function(req, res, next) {
         
         res.status(200).send(sqlResponse[0]);
     } catch (error) {
-        next(error);
+        errorHandler.display(error, req, res);
     }
 });
 
@@ -50,6 +51,6 @@ router.delete('/:id', async function(req, res, next) {
 
         res.status(204).send();
     } catch (error) {
-        next(error);
+        errorHandler.display(error, req, res);
     }
 });
