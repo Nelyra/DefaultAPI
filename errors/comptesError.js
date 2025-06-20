@@ -6,6 +6,30 @@ exports.CompteNotFoundError = class CompteNotFoundError extends Error {
     }
 }
 
+exports.CompteMissingFieldsError = class CompteMissingFieldsError extends Error {   
+    constructor(fields) {
+        super(`Missing required fields for creating a compte: ${fields.join(', ')}`);
+        this.name = 'CompteMissingFieldsError';
+        this.statusCode = 400;
+    }
+}
+
+exports.VirementMissingFieldsError = class VirementMissingFieldsError extends Error {
+    constructor(fields) {
+        super(`Missing required fields for creating a virement: ${fields.join(', ')}`);
+        this.name = 'VirementMissingFieldsError';
+        this.statusCode = 400;
+    }
+}
+
+exports.MouvementMissingFieldsError = class MouvementMissingFieldsError extends Error {
+    constructor(fields) {
+        super(`Missing required fields for creating a mouvement: ${fields.join(', ')}`);
+        this.name = 'MouvementMissingFieldsError';
+        this.statusCode = 400;
+    }
+}
+
 exports.CompteUnauthorizedError = class CompteUnauthorizedError extends Error {
     constructor(compteName = 'unspecified') {
         super(`Unauthorized access to compte '${compteName}'.`);
