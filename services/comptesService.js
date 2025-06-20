@@ -13,11 +13,15 @@ exports.getAllComptes = async function(id) {
     return await comptesRepository.getAllComptes(id);
 }
 
-exports.getCompteById = async function(id) {
-    const result = await comptesRepository.getCompteById(id);
+exports.getCompteById = async function(id, UserId) {
+    const result = await comptesRepository.getCompteById(id, UserId);
 
     if (result.length === 0) {
         throw new CompteNotFoundError(id);
+    }
+
+    if(result.idUtilisateur !== UserId){
+        throw new CompteUnauthorizedError(id)
     }
 
     return result[0];
