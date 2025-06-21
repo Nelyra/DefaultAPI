@@ -35,7 +35,7 @@ router.get('/:id', async function(req, res, next) {
     try {
         const sqlResponse = await sousCategoriesService.getSubCategoryById(id);
         
-        res.status(200).send(sqlResponse[0]);
+        res.status(200).send(sqlResponse);
     } catch (error) {
         errorHandler.display(error, req, res);
     }
