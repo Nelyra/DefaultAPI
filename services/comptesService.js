@@ -20,7 +20,7 @@ exports.getAllComptes = async function(id) {
     return await comptesRepository.getAllComptes(id);
 }
 
-exports.getCompteById = async function(userId, id) {
+exports.getCompteById = async function(id, userId) {
     const result = await comptesRepository.getCompteById(id);
 
     if (result.length === 0) {
@@ -34,17 +34,18 @@ exports.getCompteById = async function(userId, id) {
     return result[0];
 }
 
-exports.getMouvementsByCompteId = async function(id, category, subCategory, user) {
-    await this.getCompteById(user, id); // Ensure the compte exists
+exports.getMouvementsByCompteId = async function(id, category, subCategory, userId) {
+    console.log("Fetching mouvements for compte ID:", id, "with category:", category, "and subCategory:", subCategory, "for user ID:", userId);
+    await this.getCompteById(id, userId); // Ensure the compte exists
 
     if(category !== undefined) {
         //Verifier que la catégorie existe
-        await getCategoryById(category);
+        await categoryService.getCategoryById(category);
     }
 
     if(subCategory !== undefined) {
         //Verifier que la sous catégorie existe
-        await getSubCategoryById(subCategory);
+        await sousCategoriesService.getSubCategoryById(subCategory);
     }
 
     return await comptesRepository.getMouvementsByCompteId(id, category, subCategory);
@@ -52,7 +53,7 @@ exports.getMouvementsByCompteId = async function(id, category, subCategory, user
 }
 
 exports.getVirementsByCompteId = async function(id, typeMouvement, userId) {
-    await this.getCompteById(userId, id); // Ensure the compte exists
+    await this.getCompteById(id, userId); // Ensure the compte exists
 
     if ((typeMouvement === undefined) || (typeMouvement === 'C' || typeMouvement === 'D')) {
         return await comptesRepository.getVirementsByCompteId(id, typeMouvement);

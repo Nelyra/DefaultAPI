@@ -18,11 +18,11 @@ router.get('/', auth.verifyToken, async function(req, res, next) {
 
 router.get('/:id', auth.verifyToken, async function(req, res, next) {
   const id = req.params.id;
-  const user = req.user.id;
+  const userId = req.user.id;
 
 
   try {
-    const compte = await comptesService.getCompteById(id, user);
+    const compte = await comptesService.getCompteById(id, userId);
     
     res.status(200).send(compte);
   } catch (error) {

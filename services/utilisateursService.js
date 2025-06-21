@@ -44,15 +44,15 @@ exports.getUserMouvementsById = async function(id, category, subCategory) {
         throw new UserNotFoundError(id);
     }
 
-    const promises = [];
+    const comptes = [];
 
     for (const compte of sqlResponse) {
-        promises.push(
-            comptesService.getMouvementsByCompteId(compte.idCompte, category, subCategory)
+        comptes.push(
+            comptesService.getMouvementsByCompteId(compte.idCompte, category, subCategory, id)
         );
     }
 
-    const results = await Promise.all(promises);
+    const results = await Promise.all(comptes);
 
     const mouvements = results.flat();
 
@@ -73,7 +73,7 @@ exports.getUserVirementsById = async function(id, typeMouvement) {
 
     for (const compte of sqlResponse) {
         promises.push(
-            comptesService.getVirementsByCompteId(compte.idCompte, typeMouvement)
+            comptesService.getVirementsByCompteId(compte.idCompte, typeMouvement, id)
         );
     }
 
