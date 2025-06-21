@@ -1,21 +1,19 @@
 const comptesRepository = require('../repositories/comptesRepository');
-const utilisateursRepository = require("../repositories/utilisateursRepository");
-const tiersRepository = require("../repositories/tiersRepository");
+const tiersService = require('./tiersService');
+const categoryService = require('./categoriesService');
+const sousCategoriesService = require('./sousCategoriesService');
 
-const {UserNotFoundError} = require("../errors/utilisateursError");
-const { CompteMissingFieldsError } = require('../errors/comptesError');
-const { VirementMissingFieldsError } = require('../errors/comptesError');
-const { MouvementMissingFieldsError } = require('../errors/comptesError');
-const {CategoryNotFoundError} = require("../errors/categoriesError");
+const { CompteNotFoundError, 
+    CompteMissingFieldsError, 
+    VirementMissingFieldsError, 
+    MouvementMissingFieldsError,
+    MouvementTypeInvalid,
+    CompteUnauthorizedError,
+    NegativeMontantError,
+    InvalidMontantError,
+ } = require('../errors/comptesError');
+const { SubCategoryWrongCategoryError} = require("../errors/sousCategoriesError");
 
-const VirementWrongTypeSpecified = require('../errors/comptesError').VirementWrongTypeSpecified;
-const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
-const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
-const TiersNotFoundError = require('../errors/tiersError').TiersNotFoundError;
-const TiersNotAuthorizedError = require('../errors/tiersError').TiersNotAuthorizedError;
-
-const getCategoryById = require('../services/categoriesService').getCategoryById;
-const getSubCategoryById = require('../services/sousCategoriesService').getSubCategoryById;
 
 exports.getAllComptes = async function(id) {
     return await comptesRepository.getAllComptes(id);
@@ -58,7 +56,7 @@ exports.getVirementsByCompteId = async function(id, typeMouvement, userId) {
     if ((typeMouvement === undefined) || (typeMouvement === 'C' || typeMouvement === 'D')) {
         return await comptesRepository.getVirementsByCompteId(id, typeMouvement);
     } else {
-        throw new VirementWrongTypeSpecified(typeMouvement);
+        throw new MouvementTypeInvalid(typeMouvement);
     }
 }
 
@@ -100,8 +98,6 @@ exports.createCompte = async function(compte) {
 }
 
 exports.createVirement = async function(userId, virement) {
-    const compteCredit = await this.getCompteById(userId, virement.idCompteCredit);
-    const compteDebit = await this.getCompteById(userId, virement.idCompteDebit);
 
     if (!virement.idCompteCredit || !virement.montant || !virement.idCompteDebit) {
         throw new VirementMissingFieldsError(['idCompteCredit', 'montant', 'idCompteDebit']);
@@ -111,28 +107,47 @@ exports.createVirement = async function(userId, virement) {
 }
 
 exports.createMouvement = async function(userId, mouvement) {
-    console.log("Creating mouvement:", mouvement);
     const compte = await this.getCompteById(userId, mouvement.idCompte);
+
+    mouvement = {
+        idCompte: compte.idCompte,
+        montant: mouvement.montant,
+        typeMouvement: mouvement.typeMouvement,
+        dateMouvement: mouvement.dateMouvement || new Date(),
+        idTiers: mouvement.idTiers || null,
+        idSousCategorie: mouvement.idSousCategorie || null,
+        idCategorie: mouvement.idCategorie || null,
+    }
     
     if (!mouvement.montant || !mouvement.typeMouvement) {
         throw new MouvementMissingFieldsError(['montant', 'typeMouvement']);
     }
 
+    if (mouvement.montant === undefined || typeof mouvement.montant !== 'number') {
+        throw new InvalidMontantError(mouvement.montant);
+    }
+
+    if (mouvement.montant <= 0) {
+        throw new NegativeMontantError(mouvement.montant);
+    }
+
     if (mouvement.typeMouvement !== 'C' && mouvement.typeMouvement !== 'D') {
-        throw new VirementWrongTypeSpecified(mouvement.typeMouvement);
+        throw new MouvementTypeInvalid(mouvement.typeMouvement);
     }
 
     if(mouvement.idTiers) {
-        const tiers = await tiersRepository.getTierById(mouvement.idTiers);
+        await tiersService.getTierById(mouvement.idTiers, userId);
+    }
 
-        console.log("Tiers found:", tiers);
+    if(mouvement.idCategorie) {
+        await categoryService.getCategoryById(mouvement.idCategorie);
+    }
 
-        if (tiers.length === 0) {
-            throw new TiersNotFoundError(mouvement.idTiers);
-        }
+    if(mouvement.idSousCategorie) {
+        const subCategory = await sousCategoriesService.getSubCategoryById(mouvement.idSousCategorie);
 
-        if (tiers[0].idUtilisateur !== userId) {
-            throw new TiersNotAuthorizedError(mouvement.idTiers, userId);
+        if (mouvement.idCategorie && subCategory.idCategorie != mouvement.idCategorie) {
+            throw new SubCategoryWrongCategoryError(mouvement.idSousCategorie, mouvement.idCategorie);
         }
     }
 

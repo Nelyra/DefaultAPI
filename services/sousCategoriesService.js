@@ -15,7 +15,7 @@ exports.getSubCategoryById = async function(id) {
         throw new SubCategoryNotFoundError(id);
     }
 
-    return result;
+    return result[0];
 }
 
 exports.createSubCategory = async function(nomSousCategorie, idCategorie) {

@@ -30,6 +30,22 @@ exports.MouvementTypeInvalid = class MouvementTypeInvalid extends Error {
     }
 }
 
+exports.InvalidMontantError = class InvalidMontantError extends Error {
+    constructor(montant) {
+        super(`Invalid montant: ${montant}. Montant must be a number.`);
+        this.name = 'InvalidMontantError';
+        this.statusCode = 400; // HTTP status code for Bad Request
+    }
+}
+
+exports.NegativeMontantError = class NegativeMontantError extends Error {
+    constructor(montant) {
+        super(`Invalid montant: ${montant}. Montant must be a strictly positive number (above 0).`);
+        this.name = 'InvalidMontantError';
+        this.statusCode = 400; // HTTP status code for Bad Request
+    }
+}
+
 exports.MouvementMissingFieldsError = class MouvementMissingFieldsError extends Error {
     constructor(fields) {
         super(`Missing required fields for creating a mouvement: ${fields.join(', ')}`);
