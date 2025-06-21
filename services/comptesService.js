@@ -1,5 +1,7 @@
 const comptesRepository = require('../repositories/comptesRepository');
 const utilisateursRepository = require("../repositories/utilisateursRepository");
+const tiersRepository = require("../repositories/tiersRepository");
+
 const {UserNotFoundError} = require("../errors/utilisateursError");
 const { CompteMissingFieldsError } = require('../errors/comptesError');
 const { VirementMissingFieldsError } = require('../errors/comptesError');
@@ -9,6 +11,8 @@ const {CategoryNotFoundError} = require("../errors/categoriesError");
 const VirementWrongTypeSpecified = require('../errors/comptesError').VirementWrongTypeSpecified;
 const CompteNotFoundError = require('../errors/comptesError').CompteNotFoundError;
 const CompteUnauthorizedError = require('../errors/comptesError').CompteUnauthorizedError;
+const TiersNotFoundError = require('../errors/tiersError').TiersNotFoundError;
+const TiersNotAuthorizedError = require('../errors/tiersError').TiersNotAuthorizedError;
 
 const getCategoryById = require('../services/categoriesService').getCategoryById;
 const getSubCategoryById = require('../services/sousCategoriesService').getSubCategoryById;
@@ -112,6 +116,24 @@ exports.createMouvement = async function(userId, mouvement) {
     
     if (!mouvement.montant || !mouvement.typeMouvement) {
         throw new MouvementMissingFieldsError(['montant', 'typeMouvement']);
+    }
+
+    if (mouvement.typeMouvement !== 'C' && mouvement.typeMouvement !== 'D') {
+        throw new VirementWrongTypeSpecified(mouvement.typeMouvement);
+    }
+
+    if(mouvement.idTiers) {
+        const tiers = await tiersRepository.getTierById(mouvement.idTiers);
+
+        console.log("Tiers found:", tiers);
+
+        if (tiers.length === 0) {
+            throw new TiersNotFoundError(mouvement.idTiers);
+        }
+
+        if (tiers[0].idUtilisateur !== userId) {
+            throw new TiersNotAuthorizedError(mouvement.idTiers, userId);
+        }
     }
 
     return await comptesRepository.createMouvement(mouvement);
