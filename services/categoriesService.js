@@ -50,7 +50,7 @@ exports.getCategoryById = async function(id) {
         throw new CategoryNotFoundError(id);
     }
 
-    return result;
+    return result[0];
 }
 
 exports.getSubCategoriesByCategoryId = async function(id) {

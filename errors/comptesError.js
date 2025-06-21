@@ -22,11 +22,27 @@ exports.VirementMissingFieldsError = class VirementMissingFieldsError extends Er
     }
 }
 
-exports.VirementWrongTypeSpecified = class VirementWrongTypeSpecified extends Error {
-    constructor(typeMouvmeent) {
-        super(`Wrong movement type specified, must be C or D. Given ${typeMouvmeent}`);
-        this.name = 'VirementWrongTypeSpecified';
-        this.statusCode = 404;
+exports.MouvementTypeInvalid = class MouvementTypeInvalid extends Error {
+    constructor(typeMouvement) {
+        super(`Wrong movement type specified, must be C or D. Given ${typeMouvement}`);
+        this.name = 'MouvementTypeInvalid';
+        this.statusCode = 400;
+    }
+}
+
+exports.InvalidMontantError = class InvalidMontantError extends Error {
+    constructor(montant) {
+        super(`Invalid montant: ${montant}. Montant must be a number.`);
+        this.name = 'InvalidMontantError';
+        this.statusCode = 400; // HTTP status code for Bad Request
+    }
+}
+
+exports.NegativeMontantError = class NegativeMontantError extends Error {
+    constructor(montant) {
+        super(`Invalid montant: ${montant}. Montant must be a strictly positive number (above 0).`);
+        this.name = 'InvalidMontantError';
+        this.statusCode = 400; // HTTP status code for Bad Request
     }
 }
 

@@ -6,6 +6,14 @@ exports.SubCategoryNotFoundError = class SubCategoryNotFoundError extends Error 
     }
 }
 
+exports.SubCategoryWrongCategoryError = class SubCategoryWrongCategoryError extends Error {
+    constructor(subCategoryName, categoryId) {
+        super(`Subcategory '${subCategoryName}' does not belong to category with ID '${categoryId}'.`);
+        this.name = 'SubCategoryWrongCategoryError';
+        this.statusCode = 400; // HTTP status code for Bad Request
+    }
+}
+
 exports.InvalidSubCategoryError = class InvalidSubCategoryError extends Error {
     constructor(missingFields = []) {
         super(`Invalid subcategory data. Missing fields: ${missingFields.join(', ')}`);
