@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "6790f069-a2fe-4338-affa-64470660d485",
 		"name": "API Rest",
+		"description": "Pour avoir plus d'informations concernant cet API, veuillez consulter le repository github associé : [https://github.com/Nelyra/DefaultAPI](https://github.com/Nelyra/DefaultAPI)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "45865509",
 		"_collection_link": "https://namu-4852391.postman.co/workspace/DEFAULT-API-REST~64f81e61-3f2a-49fe-8184-4b66b1071ea8/collection/45865509-6790f069-a2fe-4338-affa-64470660d485?action=share&source=collection_link&creator=45865509"
@@ -11,7 +12,7 @@
 			"name": "utilisateurs",
 			"item": [
 				{
-					"name": "All Users",
+					"name": "Get User Mouvements",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -22,22 +23,15 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/utilisateurs",
+							"raw": "{{base_url}}/utilisateurs/mouvements",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"utilisateurs"
+								"utilisateurs",
+								"mouvements"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get User Mouvements",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				},
@@ -53,31 +47,21 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/utilisateurs/virements",
+							"raw": "{{base_url}}/utilisateurs/virements?typeMouvement=A",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"utilisateurs",
 								"virements"
+							],
+							"query": [
+								{
+									"key": "typeMouvement",
+									"value": "A"
+								}
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get User Virements Debit",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Get User Virements Crédit",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				},
@@ -101,29 +85,6 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/utilisateurs",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"utilisateurs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete user",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{access-token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{base_url}}/utilisateurs",
 							"host": [
@@ -187,7 +148,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "123"
+									"value": "1"
 								}
 							]
 						}
@@ -271,7 +232,37 @@
 					"name": "Get Account Virements",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/comptes/:id/virements",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"comptes",
+								":id",
+								"virements"
+							],
+							"query": [
+								{
+									"key": "typeMouvement",
+									"value": "C",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -288,7 +279,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomBanque\" : \"LBP\",\r\n    \"idUtilisateur\": 1,\r\n    \"descriptionCompte\": \"Compte courant\",\r\n    \"soldeInitial\": \"123\",\r\n    \"dernierSolde\": \"1234\"\r\n}   ",
+							"raw": "{\r\n    \"nomBanque\" : \"LBP\",\r\n    \"idUtilisateur\": 79,\r\n    \"descriptionCompte\": \"Compte courant\",\r\n    \"soldeInitial\": \"123\",\r\n    \"dernierSolde\": \"1234\"\r\n}   ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -320,7 +311,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idCompteCredit\": \"2\",\r\n    \"montant\": \"69\"\r\n}",
+							"raw": "{\r\n    \"idCompteCredit\": \"1\",\r\n    \"idCompteDebit\": \"1\",\r\n    \"montant\": 69,\r\n    \"idTiers\": \"4\",\r\n    \"idCategorie\": \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -328,20 +319,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/comptes/:id/virements",
+							"raw": "{{base_url}}/comptes/virements",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"comptes",
-								":id",
 								"virements"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
 							]
 						}
 					},
@@ -360,7 +344,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"typeMouvement\": \"D\",\r\n    \"montant\": \"69\"\r\n}",
+							"raw": "{\r\n    \"typeMouvement\": \"D\",\r\n    \"montant\": 1.1,\r\n    \"idTiers\": \"1\",\r\n    \"idCategorie\": \"1\",\r\n    \"idSousCategorie\": \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -519,6 +503,38 @@
 					"response": []
 				},
 				{
+					"name": "Post Tiers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nomTiers\": \"Chats\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tiers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tiers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update tiers",
 					"event": [
 						{
@@ -598,38 +614,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Post Tiers",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{access-token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nomTiers\": \"Chats\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/tiers",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"tiers"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -640,7 +624,16 @@
 					"name": "Get categories",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
 					},
 					"response": []
 				},
@@ -648,7 +641,23 @@
 					"name": "Get categories by id",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -656,23 +665,65 @@
 					"name": "Get sous-categories by id",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sous-categories/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sous-categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get subcateory from category",
+					"name": "Get sous-categories from categorie",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/:id/sous-categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categories",
+								":id",
+								"sous-categories"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET sous-categories",
+					"name": "Get sous-categories",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/sous-categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sous-categories"
+							]
+						}
 					},
 					"response": []
 				},
@@ -709,19 +760,20 @@
 					"response": []
 				},
 				{
-					"name": "Post categories",
+					"name": "Post sous-categories",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "{{access-token}}",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomCategorie\": \"Meow\"\r\n}",
+							"raw": "{\r\n    \"nomSousCategorie\": \"Chats\",\r\n    \"idCategorie\": \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -729,12 +781,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/categories",
+							"raw": "{{base_url}}/sous-categories",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"categories"
+								"sous-categories"
 							]
 						}
 					},
@@ -862,7 +914,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:3000",
+			"value": "",
 			"type": "default"
 		},
 		{
