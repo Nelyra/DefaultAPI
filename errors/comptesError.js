@@ -38,6 +38,14 @@ exports.InvalidMontantError = class InvalidMontantError extends Error {
     }
 }
 
+exports.IdenticalCompteError = class IdenticalCompteError extends Error {
+    constructor(idCompteCredit, idCompteDebit) {
+        super(`Cannot create a virement between the same compte: ${idCompteCredit} and ${idCompteDebit}.`);
+        this.name = 'IdenticalCompteError';
+        this.statusCode = 400; // HTTP status code for Bad Request
+    }
+}
+
 exports.NegativeMontantError = class NegativeMontantError extends Error {
     constructor(montant) {
         super(`Invalid montant: ${montant}. Montant must be a strictly positive number (above 0).`);

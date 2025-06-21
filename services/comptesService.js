@@ -11,6 +11,7 @@ const { CompteNotFoundError,
     CompteUnauthorizedError,
     NegativeMontantError,
     InvalidMontantError,
+    IdenticalCompteError
  } = require('../errors/comptesError');
 const { SubCategoryWrongCategoryError} = require("../errors/sousCategoriesError");
 
@@ -98,9 +99,33 @@ exports.createCompte = async function(compte) {
 }
 
 exports.createVirement = async function(userId, virement) {
+    console.log("Virement object:", virement);
 
     if (!virement.idCompteCredit || !virement.montant || !virement.idCompteDebit) {
         throw new VirementMissingFieldsError(['idCompteCredit', 'montant', 'idCompteDebit']);
+    }
+
+    const compteCredit = await this.getCompteById(userId, virement.idCompteCredit);
+    const compteDebit = await this.getCompteById(userId, virement.idCompteDebit);
+
+    if (virement.montant === undefined || typeof virement.montant !== 'number') {
+        throw new InvalidMontantError(virement.montant);
+    }
+
+    if( compteCredit.idCompte === compteDebit.idCompte) {
+        throw new IdenticalCompteError(virement.idCompteCredit, virement.idCompteDebit);
+    }
+
+    if (virement.montant <= 0) {
+        throw new NegativeMontantError(virement.montant);
+    }
+
+    if (virement.idTiers) {
+        await tiersService.getTierById(virement.idTiers, userId);
+    }
+
+    if( virement.idCategorie) {
+        await categoryService.getCategoryById(virement.idCategorie);
     }
 
     return await comptesRepository.createVirement(virement);

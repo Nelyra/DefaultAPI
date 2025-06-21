@@ -106,7 +106,14 @@ router.post('/', auth.verifyToken, async function(req, res, next) {
 });
 
 router.post('/virements', auth.verifyToken, async function(req, res, next) {
-  const virement = req.body;
+  const virement = {
+      idCompteCredit: req.body.idCompteCredit,
+      idCompteDebit: req.body.idCompteDebit,
+      montant: req.body.montant,
+      dateVirement: req.body.dateVirement || new Date(),
+      idTiers: req.body.idTiers || null,
+      idCategorie: req.body.idCategorie || null,
+  }
 
   try {
     const result = await comptesService.createVirement(req.user.id, virement);
