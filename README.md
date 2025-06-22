@@ -1,5 +1,3 @@
-Meow. J'aime les API.
-
 > RESTful API built with Express.js
 
 ## Installation
@@ -55,7 +53,7 @@ The API will be ran locally on [localhost:8000](http://localhost:3000).
 
 ## Running automatic tests onto the API
 
-⚠️ The tests are **deprecated**. We made sure they are still working for the most basic routes, but they will not supply most extensive testing (i.e. 403 FORBIDDEN requests)
+⚠️ The tests are **deprecated**.
 
 We provide a series of test using [Jest](https://jestjs.io/) and [Supertest](https://www.npmjs.com/package/supertest). To start them, you use:
 
