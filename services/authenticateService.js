@@ -2,7 +2,6 @@
 const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
 const jwt = require('jsonwebtoken'); // Import jsonwebtoken for token generation
 
-const authenicateRepository = require('../repositories/authenticateRepository');
 const utilisateursRepository = require('../repositories/utilisateursRepository');
 
 const UserNotFoundError = require('../errors/utilisateursError').UserNotFoundError;
