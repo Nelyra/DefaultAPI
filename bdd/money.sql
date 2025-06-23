@@ -1,4 +1,18 @@
+DROP TRIGGER IF EXISTS TRG_BEFORE_UPDATE_CATEGORIE;
+DROP TRIGGER IF EXISTS TRG_BEFORE_INSERT_MOUVEMENT; 
+DROP TRIGGER IF EXISTS TRG_BEFORE_INSERT_MOUVEMENT2;
+DROP TRIGGER IF EXISTS TRG_AFTER_DELETE_VIREMENT;
+DROP TRIGGER IF EXISTS TRG_AFTER_INSERT;
+DROP TRIGGER IF EXISTS TRG_BEFORE_UPDATE_VIREMENT;
+
+DROP TABLE IF EXISTS mouvement;
+DROP TABLE IF EXISTS Tiers;
+DROP TABLE IF EXISTS Virement;
+DROP TABLE IF EXISTS SousCategorie;
 DROP TABLE IF EXISTS Categorie;
+DROP TABLE IF EXISTS Compte;
+DROP TABLE IF EXISTS Utilisateur;
+
 CREATE TABLE Categorie
 (
     idCategorie       int auto_increment
@@ -18,17 +32,16 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS SousCategorie;
 CREATE TABLE SousCategorie
 (
     idSousCategorie   int auto_increment
         primary key,
     nomSousCategorie  varchar(50)                           not null,
-    idcategorie       int                                   not null,
+    idCategorie       int                                   not null,
     dateHeureCreation timestamp default current_timestamp() not null,
     dateHeureMAJ      timestamp default current_timestamp() not null,
     constraint SousCategorie_Categorie_idCategorie_fk
-        foreign key (idcategorie) references Categorie (idCategorie)
+        foreign key (idCategorie) references Categorie (idCategorie)
             on delete cascade
 );
 
@@ -42,7 +55,6 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS Utilisateur;
 CREATE TABLE Utilisateur
 (
     idUtilisateur     int auto_increment
@@ -58,7 +70,7 @@ CREATE TABLE Utilisateur
     codePostal        char(5)                               null
 );
 
-DROP TABLE IF EXISTS Compte;
+
 CREATE TABLE Compte
 (
     idCompte          int auto_increment
@@ -85,7 +97,6 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS Tiers;
 CREATE TABLE Tiers
 (
     idTiers           int auto_increment
@@ -118,7 +129,6 @@ begin
 end$$
 DELIMITER ;
 
-DROP TABLE IF EXISTS Virement;
 CREATE TABLE Virement
 (
     idVirement        int auto_increment
@@ -137,8 +147,7 @@ CREATE TABLE Virement
         foreign key (idCompteCredit) references Compte (idCompte)
 );
 
-DROP TABLE IF EXISTS Mouvement;
-CREATE TABLE Mouvement
+CREATE TABLE mouvement
 (
     idMouvement       int auto_increment                    primary key,
     dateMouvement     date      default (CURRENT_DATE)      not null,
@@ -167,7 +176,7 @@ CREATE TABLE Mouvement
 
 DELIMITER $$
 CREATE TRIGGER TRG_BEFORE_INSERT_MOUVEMENT
-BEFORE INSERT ON Mouvement
+BEFORE INSERT ON mouvement
 FOR EACH ROW
 BEGIN
     DECLARE v_Categorie INT DEFAULT 0;
@@ -190,7 +199,7 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER TRG_BEFORE_INSERT_MOUVEMENT2
-    BEFORE INSERT ON Mouvement
+    BEFORE INSERT ON mouvement
     for each row
 begin
     IF NEW.typeMouvement = 'D' THEN
@@ -212,7 +221,7 @@ CREATE TRIGGER TRG_AFTER_DELETE_VIREMENT
     on Virement
     for each row
 begin
-    DELETE FROM Mouvement WHERE idVirement = OLD.idVirement;
+    DELETE FROM mouvement WHERE idVirement = OLD.idVirement;
 end$$
 DELIMITER ;
 
@@ -256,7 +265,7 @@ select `m`.`idMouvement`         AS `idMouvement`,
        `ctg`.`nomCategorie`      AS `nomCategorie`,
        `sctg`.`nomSousCategorie` AS `nomSousCategorie`,
        `m`.`montant`             AS `montant`
-from ((((Mouvement `m` join Compte `c`
+from ((((mouvement `m` join Compte `c`
          on (`m`.`idCompte` = `c`.`idCompte`)) join Tiers `t`
         on (`m`.`idTiers` = `t`.`idTiers`)) join Categorie `ctg`
        on (`m`.`idCategorie` = `ctg`.`idCategorie`)) left join SousCategorie `sctg`
