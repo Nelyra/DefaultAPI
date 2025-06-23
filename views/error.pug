@@ -1,6 +1,9 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  if error.statusCode && error.message
+    h1 Error #{error.statusCode}
+    p #{error.message}
+  else 
+    h1 Error
+    p An unexpected error occurred.

@@ -1,19 +1,11 @@
-var mysql = require('mysql');
-const DATABASE = "default_bdd"
+const mysql = require('mysql');
+const dotenv = require('dotenv');
+dotenv.config();
 
-exports.client = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: DATABASE,
+exports.client = mysql.createPool({
+    connectionLimit: 10,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 })
-
-exports.connectMySQL = () =>
-{
-    try {
-        this.client.connect()
-    } catch (e) {
-        console.error(e);
-    }
-}
-
