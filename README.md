@@ -18,7 +18,7 @@ npm install
 
 This will download every node package necessary for the API to be up and ready.
 
-### Setting up the environnement secrets
+### Setting up the environment secrets
 
 On the root of the project, **create a `.env` file**. You will need to set a few variables in this file. You can use the file `.example.env` as an example to understand what it looks like. Here's a rundown of every variable:
 
@@ -35,9 +35,9 @@ On the root of the project, **create a `.env` file**. You will need to set a few
 ### Setting up the database.
 
 Our project does not automatically create a database for you, you will need to run the setup script yourself.
-The setup script is the file named `/bdd/money.sql`. Copy the entierity and run it.
+The setup script is the file named `/bdd/money.sql`. Copy the entirety and run it.
 
-> If a previous project using the same Database structure was existing on this Database, you can run the script again, and it clear every table for you.
+> If a previous project using the same Database structure was existing on this Database, you can run the script again, and it will clear every table for you.
 
 Before running the API, make sure that your **Database engine is running properly**.
 
